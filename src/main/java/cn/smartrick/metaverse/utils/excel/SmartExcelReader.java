@@ -6,13 +6,7 @@ package cn.smartrick.metaverse.utils.excel;
  */
 
 
-
-import com.ram.funculture.utils.SmartFileUtil;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * @Date: 2021年11月24日10:41:29
@@ -22,7 +16,9 @@ import java.io.InputStream;
 public class SmartExcelReader {
 
     public static SmartExcel openExcel(String filePath) throws IOException {
-        SmartFileUtil.isFileExistThrowException(filePath);
+        if(!new File(filePath).exists()){
+            throw new FileNotFoundException();
+        }
         return new SmartExcel(new File(filePath).getCanonicalPath());
     }
 

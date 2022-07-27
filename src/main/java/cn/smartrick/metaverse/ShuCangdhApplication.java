@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description: TODO
  */
 @SpringBootApplication
-public class ShucangdhApplication {
+public class ShuCangdhApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ShucangdhApplication.class);
+        SpringApplication.run(ShuCangdhApplication.class);
     }
 }

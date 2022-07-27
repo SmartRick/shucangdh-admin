@@ -1,5 +1,6 @@
 package cn.smartrick.metaverse.utils;
 
+import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -41,17 +42,17 @@ public class SmartIPUtil {
             InetAddress ip = null;
             // 是否找到外网IP
             boolean finded = false;
-            while (netInterfaces.hasMoreElements() && ! finded) {
+            while (netInterfaces.hasMoreElements() && !finded) {
                 NetworkInterface ni = netInterfaces.nextElement();
                 Enumeration<InetAddress> address = ni.getInetAddresses();
                 while (address.hasMoreElements()) {
                     ip = address.nextElement();
                     // 外网IP
-                    if (! ip.isSiteLocalAddress() && ! ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == - 1) {
+                    if (!ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1) {
                         netIp = ip.getHostAddress();
                         finded = true;
                         break;
-                    } else if (ip.isSiteLocalAddress() && ! ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == - 1) {
+                    } else if (ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1) {
                         // 内网IP
                         localIp = ip.getHostAddress();
                     }
@@ -60,7 +61,7 @@ public class SmartIPUtil {
         } catch (SocketException e) {
             e.getMessage();
         }
-        if (netIp != null && ! "".equals(netIp)) {
+        if (netIp != null && !"".equals(netIp)) {
             return netIp;
         } else {
             return localIp;
@@ -69,6 +70,7 @@ public class SmartIPUtil {
 
     /**
      * 获取请求ip
+     *
      * @param request http请求对象
      * @return String 请求端ip
      */
@@ -99,13 +101,13 @@ public class SmartIPUtil {
     private static String getXForwardedForIp(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         //ip 无效直接返回
-        if (! ipValid(ip)) {
+        if (!ipValid(ip)) {
             return "";
         }
         if (ip.length() > 15) {
             String[] ips = ip.split(",");
             for (String strIp : ips) {
-                if (! ("unknown".equalsIgnoreCase(strIp))) {
+                if (!("unknown".equalsIgnoreCase(strIp))) {
                     ip = strIp;
                     break;
                 }
@@ -136,6 +138,7 @@ public class SmartIPUtil {
 
     /**
      * 获取 IP 地理位置
+     *
      * @param ip ip
      * @return String 地理位置
      */
@@ -144,11 +147,12 @@ public class SmartIPUtil {
         if (StringUtils.isEmpty(ip)) {
             return location;
         }
-        Map<String, String> param = new HashMap<>();
+        Map<String, Object> param = new HashMap<>();
         param.put("ip", ip);
 
         try {
-            String rspStr = SmartHttpUtil.get(IP_URL, param).toBodyString();
+
+            String rspStr = HttpUtil.get(IP_URL, param);
             if (StringUtils.isEmpty(rspStr)) {
                 return location;
             }

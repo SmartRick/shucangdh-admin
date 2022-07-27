@@ -1,7 +1,7 @@
 package cn.smartrick.metaverse.common.domain;
 
 
-import com.ram.funculture.common.constant.ResponseCode;
+import cn.smartrick.metaverse.common.constant.ResponseCode;
 import io.swagger.annotations.ApiModelProperty;
 
 /**

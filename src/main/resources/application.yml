@@ -1,0 +1,59 @@
+server:
+  port: 8599
+
+spring:
+  application:
+    name: shucangdh
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    url: jdbc:mysql://192.168.163.16:3308/fun_culture?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    url: jdbc:mysql://192.168.128.61:3306/shucangdh?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    username: root
+    #    password: funadmin123
+    password: 123456
+    # Druid数据源监控配置
+    druid:
+      # 连接池的配置信息
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username:
+        login-password:
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+
+
+
+mybatis-plus:
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #默认日志
+  mapper-locations:  classpath:mapper/*Mapper.xml
+  configuration:
+    # 对象映射数据库字段 驼峰转下划线命名方式
+    map-underscore-to-camel-case: true
+
+#分页插件的配置
+pagehelper:
+  #配置四項 hprs
+  helper-dialect: mysql  #分页助手方言：mysql
+  params: count=countSql  #为了支持 startPage(Object params) 方法
+  support-methods-arguments: true  #支持通过 Mapper 接口参数来传递分页参数，默认值 false
+  reasonable: true #分页合理化参数，默认值为 false,页码不为负，不超总页码
+
+knife4j:
+  # 开启增强配置
+  enable: true
+  basic:
+    enable: false
+    # Basic认证用户名
+    username: admin
+    # Basic认证密码
+    password: admin
