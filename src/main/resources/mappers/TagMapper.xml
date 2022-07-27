@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smartrick.metaverse.mapper.TagMapper">
+
+    <resultMap id="TagVO" type="cn.smartrick.metaverse.domain.vo.TagVO"></resultMap>
+    <resultMap id="TagExcelVO" type="cn.smartrick.metaverse.domain.vo.excel.TagExcelVO"></resultMap>
+
+
+    <select id="selectByPage" resultMap="TagVO">
+        select
+          id,
+          tag_name,
+          tag_type,
+          link,
+          background_color,
+          created_at,
+          updated_at
+        from t_tag
+        <where>
+            <if test="queryDTO.tagName != null and queryDTO.tagName != ''">
+                AND tag_name = #{queryDTO.tagName}
+            </if>
+            <if test="queryDTO.tagType != null">
+                AND tag_type = #{queryDTO.tagType}
+            </if>
+            <if test="queryDTO.link != null and queryDTO.link != ''">
+                AND link = #{queryDTO.link}
+            </if>
+
+            <if test="queryDTO.createTimeBegin != null ">
+                AND create_time &gt;= #{queryDTO.createTimeBegin}
+            </if>
+            <if test="queryDTO.createTimeEnd != null ">
+                AND create_time &lt;= #{queryDTO.createTimeEnd}
+            </if>
+
+            <if test="queryDTO.updateTimeBegin != null ">
+                AND update_time &gt;= #{queryDTO.updateTimeBegin}
+            </if>
+            <if test="queryDTO.updateTimeEnd != null ">
+                AND update_time &lt;= #{queryDTO.updateTimeEnd}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAllExportData" resultMap="TagExcelVO">
+        select
+           id,
+           tag_name,
+           tag_type,
+           link,
+           background_color,
+           created_at,
+           updated_at
+        from t_tag
+        <where>
+            <if test="queryDTO.tagName != null and queryDTO.tagName != ''">
+                AND tag_name = #{queryDTO.tagName}
+            </if>
+            <if test="queryDTO.tagType != null">
+                AND tag_type = #{queryDTO.tagType}
+            </if>
+            <if test="queryDTO.link != null and queryDTO.link != ''">
+                AND link = #{queryDTO.link}
+            </if>
+
+            <if test="queryDTO.createTimeBegin != null ">
+                AND create_time &gt;= #{queryDTO.createTimeBegin}
+            </if>
+            <if test="queryDTO.createTimeEnd != null ">
+                AND create_time &lt;= #{queryDTO.createTimeEnd}
+            </if>
+
+            <if test="queryDTO.updateTimeBegin != null ">
+                AND update_time &gt;= #{queryDTO.updateTimeBegin}
+            </if>
+            <if test="queryDTO.updateTimeEnd != null ">
+                AND update_time &lt;= #{queryDTO.updateTimeEnd}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBatchExportData" resultMap="TagExcelVO">
+        select
+         id,
+         tag_name,
+         tag_type,
+         link,
+         background_color,
+         created_at,
+         updated_at
+        from t_tag
+        where id in
+        <foreach collection="idList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

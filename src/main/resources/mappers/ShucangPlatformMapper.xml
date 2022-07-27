@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smartrick.metaverse.mapper.ShucangPlatformMapper">
+
+    <resultMap id="ShucangPlatformVO" type="cn.smartrick.metaverse.domain.vo.ShucangPlatformVO"></resultMap>
+    <resultMap id="ShucangPlatformExcelVO"
+               type="cn.smartrick.metaverse.domain.vo.excel.ShucangPlatformExcelVO"></resultMap>
+
+
+    <select id="selectByPage" resultMap="ShucangPlatformVO">
+        select
+        sp.id,
+        sp.`name`,
+        sp.cover_img,
+        sp.remark,
+        sp.market_model,
+        sp.browse_num,
+        sp.lick_num,
+        sp.created_at,
+        sp.updated_at
+        FROM t_shucang_platform sp
+        LEFT JOIN t_sc_bc sb ON sb.sc_id = sp.id
+        LEFT JOIN t_sc_tag st ON st.sc_id = sp.id
+        <where>
+            <if test="queryDTO.name != null and queryDTO.name != ''">
+                AND sp.`name` = #{queryDTO.name}
+            </if>
+            <if test="queryDTO.coverImg != null and queryDTO.coverImg != ''">
+                AND sp.cover_img = #{queryDTO.coverImg}
+            </if>
+            <if test="queryDTO.remark != null and queryDTO.remark != ''">
+                AND sp.remark = #{queryDTO.remark}
+            </if>
+            <if test="queryDTO.marketModel != null and queryDTO.marketModel != ''">
+                AND sp.market_model = #{queryDTO.marketModel}
+            </if>
+
+            <if test="queryDTO.createTimeBegin != null ">
+                AND sp.create_time &gt;= #{queryDTO.createTimeBegin}
+            </if>
+            <if test="queryDTO.createTimeEnd != null ">
+                AND sp.create_time &lt;= #{queryDTO.createTimeEnd}
+            </if>
+
+            <if test="queryDTO.updateTimeBegin != null ">
+                AND sp.update_time &gt;= #{queryDTO.updateTimeBegin}
+            </if>
+            <if test="queryDTO.updateTimeEnd != null ">
+                AND sp.update_time &lt;= #{queryDTO.updateTimeEnd}
+            </if>
+
+            <if test="queryDTO.tagId != null">
+                AND st.tag_id = #{queryDTO.tagId}
+            </if>
+
+            <if test="queryDTO.blockchainId != null">
+                AND sb.bc_id = #{queryDTO.blockchainId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAllExportData" resultMap="ShucangPlatformExcelVO">
+        select
+        id,
+        name,
+        cover_img,
+        remark,
+        market_model,
+        browse_num,
+        lick_num,
+        created_at,
+        updated_at
+        from t_shucang_platform
+        <where>
+            <if test="queryDTO.name != null and queryDTO.name != ''">
+                AND name = #{queryDTO.name}
+            </if>
+            <if test="queryDTO.coverImg != null and queryDTO.coverImg != ''">
+                AND cover_img = #{queryDTO.coverImg}
+            </if>
+            <if test="queryDTO.remark != null and queryDTO.remark != ''">
+                AND remark = #{queryDTO.remark}
+            </if>
+            <if test="queryDTO.marketModel != null and queryDTO.marketModel != ''">
+                AND market_model = #{queryDTO.marketModel}
+            </if>
+
+            <if test="queryDTO.createTimeBegin != null ">
+                AND create_time &gt;= #{queryDTO.createTimeBegin}
+            </if>
+            <if test="queryDTO.createTimeEnd != null ">
+                AND create_time &lt;= #{queryDTO.createTimeEnd}
+            </if>
+
+            <if test="queryDTO.updateTimeBegin != null ">
+                AND update_time &gt;= #{queryDTO.updateTimeBegin}
+            </if>
+            <if test="queryDTO.updateTimeEnd != null ">
+                AND update_time &lt;= #{queryDTO.updateTimeEnd}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBatchExportData" resultMap="ShucangPlatformExcelVO">
+        select
+        id,
+        name,
+        cover_img,
+        remark,
+        market_model,
+        browse_num,
+        lick_num,
+        created_at,
+        updated_at
+        from t_shucang_platform
+        where id in
+        <foreach collection="idList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

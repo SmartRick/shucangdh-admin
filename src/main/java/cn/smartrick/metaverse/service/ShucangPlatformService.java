@@ -1,17 +1,12 @@
 package cn.smartrick.metaverse.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import cn.smartrick.metaverse.common.domain.PageResultDTO;
 import cn.smartrick.metaverse.common.domain.ResponseDTO;
-import cn.smartrick.metaverse.mapper.ShucangPlatformMapper;
 import cn.smartrick.metaverse.domain.dto.add.ShucangPlatformAddDTO;
-import cn.smartrick.metaverse.domain.dto.update.ShucangPlatformUpdateDTO;
 import cn.smartrick.metaverse.domain.dto.query.ShucangPlatformQueryDTO;
-import cn.smartrick.metaverse.domain.entity.ShucangPlatformEntity;
+import cn.smartrick.metaverse.domain.dto.update.ShucangPlatformUpdateDTO;
 import cn.smartrick.metaverse.domain.vo.ShucangPlatformVO;
 import cn.smartrick.metaverse.domain.vo.excel.ShucangPlatformExcelVO;
-
 
 import java.util.List;
 
@@ -74,4 +69,19 @@ public interface ShucangPlatformService {
      * @author SmartRick
      */
     public List<ShucangPlatformExcelVO> queryBatchExportData(List<Long> idList);
+
+
+
+    /**
+     * 点赞数藏平台
+     * @author SmartRick
+     */
+    public ResponseDTO like(Integer scId);
+
+
+    /**
+     * 浏览数藏平台
+     * @author SmartRick
+     */
+    public ResponseDTO browse(Integer scId);
 }

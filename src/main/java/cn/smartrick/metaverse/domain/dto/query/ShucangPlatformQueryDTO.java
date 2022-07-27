@@ -3,6 +3,7 @@ package cn.smartrick.metaverse.domain.dto.query;
 import cn.smartrick.metaverse.common.domain.PageParamDTO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -18,9 +19,6 @@ import java.util.Date;
 @Data
 public class ShucangPlatformQueryDTO extends PageParamDTO {
 
-    @ApiModelProperty("id")
-    private Long id;
-
     @ApiModelProperty("name")
     private String name;
 
@@ -33,11 +31,11 @@ public class ShucangPlatformQueryDTO extends PageParamDTO {
     @ApiModelProperty("market_model")
     private String marketModel;
 
-    @ApiModelProperty("browse_num")
-    private Integer browseNum;
+    @ApiModelProperty("标签")
+    private Integer tagId;
 
-    @ApiModelProperty("lick_num")
-    private Integer lickNum;
+    @ApiModelProperty("区块链")
+    private Integer blockchainId;
 
     @ApiModelProperty("创建时间-开始")
     private Date createTimeBegin;

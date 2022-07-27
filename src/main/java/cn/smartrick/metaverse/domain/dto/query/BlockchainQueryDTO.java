@@ -18,9 +18,6 @@ import java.util.Date;
 @Data
 public class BlockchainQueryDTO extends PageParamDTO {
 
-    @ApiModelProperty("id")
-    private Long id;
-
     @ApiModelProperty("blockchain")
     private String blockchain;
 
@@ -29,9 +26,6 @@ public class BlockchainQueryDTO extends PageParamDTO {
 
     @ApiModelProperty("link")
     private String link;
-
-    @ApiModelProperty("backgroundColor")
-    private String backgroundcolor;
 
     @ApiModelProperty("创建时间-开始")
     private Date createTimeBegin;

@@ -1,8 +1,9 @@
 package cn.smartrick.metaverse.domain.dto.add;
 
-import lombok.Data;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import javax.validation.constraints.Pattern;
 
 /**
  * 新建 [  ]
@@ -11,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @version 1.0
  * @company SmartRick
  * @copyright (c) 2018 SmartRickInc. All rights reserved.
- * @date  2022-07-27 10:26:37
+ * @date 2022-07-27 10:26:37
  * @since JDK1.8
  */
 @Data
@@ -25,8 +26,9 @@ public class TagAddDTO {
     @ApiModelProperty("link")
     private String link;
 
+    @Pattern(regexp = "^#\\w{6}$",message = "背景颜色值格式错误")
     @ApiModelProperty("backgroundColor")
-    private String backgroundcolor;
+    private String backgroundColor;
 
 
 }

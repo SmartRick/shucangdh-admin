@@ -3,6 +3,7 @@ package cn.smartrick.metaverse.domain.dto.query;
 import cn.smartrick.metaverse.common.domain.PageParamDTO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -18,9 +19,6 @@ import java.util.Date;
 @Data
 public class TagQueryDTO extends PageParamDTO {
 
-    @ApiModelProperty("id")
-    private Long id;
-
     @ApiModelProperty("tag_name")
     private String tagName;
 
@@ -29,9 +27,6 @@ public class TagQueryDTO extends PageParamDTO {
 
     @ApiModelProperty("link")
     private String link;
-
-    @ApiModelProperty("backgroundColor")
-    private String backgroundcolor;
 
     @ApiModelProperty("创建时间-开始")
     private Date createTimeBegin;

@@ -35,10 +35,14 @@ spring:
 
 mybatis-plus:
   #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #默认日志
-  mapper-locations:  classpath:mapper/*Mapper.xml
+  mapper-locations:  classpath:mappers/*Mapper.xml
   configuration:
     # 对象映射数据库字段 驼峰转下划线命名方式
     map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      # 全局更新策略，当字段值不为Null且不为空字符串才更新
+      update-strategy: NOT_EMPTY
 
 #分页插件的配置
 pagehelper:

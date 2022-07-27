@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smartrick.metaverse.mapper.BlockchainMapper">
+
+    <resultMap id="BlockchainVO" type="cn.smartrick.metaverse.domain.vo.BlockchainVO"></resultMap>
+    <resultMap id="BlockchainExcelVO" type="cn.smartrick.metaverse.domain.vo.excel.BlockchainExcelVO"></resultMap>
+
+
+    <select id="selectByPage" resultMap="BlockchainVO">
+        select
+          id,
+          blockchain,
+          remark,
+          link,
+          background_color,
+          created_at,
+          updated_at
+        from t_blockchain
+        <where>
+            <if test="queryDTO.blockchain != null and queryDTO.blockchain != ''">
+                AND blockchain = #{queryDTO.blockchain}
+            </if>
+            <if test="queryDTO.remark != null and queryDTO.remark != ''">
+                AND remark = #{queryDTO.remark}
+            </if>
+            <if test="queryDTO.link != null and queryDTO.link != ''">
+                AND link = #{queryDTO.link}
+            </if>
+
+            <if test="queryDTO.createTimeBegin != null ">
+                AND create_time &gt;= #{queryDTO.createTimeBegin}
+            </if>
+            <if test="queryDTO.createTimeEnd != null ">
+                AND create_time &lt;= #{queryDTO.createTimeEnd}
+            </if>
+
+            <if test="queryDTO.updateTimeBegin != null ">
+                AND update_time &gt;= #{queryDTO.updateTimeBegin}
+            </if>
+            <if test="queryDTO.updateTimeEnd != null ">
+                AND update_time &lt;= #{queryDTO.updateTimeEnd}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAllExportData" resultMap="BlockchainExcelVO">
+        select
+           id,
+           blockchain,
+           remark,
+           link,
+           background_color,
+           created_at,
+           updated_at
+        from t_blockchain
+        <where>
+            <if test="queryDTO.blockchain != null and queryDTO.blockchain != ''">
+                AND blockchain = #{queryDTO.blockchain}
+            </if>
+            <if test="queryDTO.remark != null and queryDTO.remark != ''">
+                AND remark = #{queryDTO.remark}
+            </if>
+            <if test="queryDTO.link != null and queryDTO.link != ''">
+                AND link = #{queryDTO.link}
+            </if>
+
+            <if test="queryDTO.createTimeBegin != null ">
+                AND create_time &gt;= #{queryDTO.createTimeBegin}
+            </if>
+            <if test="queryDTO.createTimeEnd != null ">
+                AND create_time &lt;= #{queryDTO.createTimeEnd}
+            </if>
+
+            <if test="queryDTO.updateTimeBegin != null ">
+                AND update_time &gt;= #{queryDTO.updateTimeBegin}
+            </if>
+            <if test="queryDTO.updateTimeEnd != null ">
+                AND update_time &lt;= #{queryDTO.updateTimeEnd}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBatchExportData" resultMap="BlockchainExcelVO">
+        select
+         id,
+         blockchain,
+         remark,
+         link,
+         background_color,
+         created_at,
+         updated_at
+        from t_blockchain
+        where id in
+        <foreach collection="idList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

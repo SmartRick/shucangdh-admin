@@ -1,17 +1,12 @@
 package cn.smartrick.metaverse.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import cn.smartrick.metaverse.common.domain.PageResultDTO;
 import cn.smartrick.metaverse.common.domain.ResponseDTO;
-import cn.smartrick.metaverse.mapper.BlockchainMapper;
 import cn.smartrick.metaverse.domain.dto.add.BlockchainAddDTO;
-import cn.smartrick.metaverse.domain.dto.update.BlockchainUpdateDTO;
 import cn.smartrick.metaverse.domain.dto.query.BlockchainQueryDTO;
-import cn.smartrick.metaverse.domain.entity.BlockchainEntity;
+import cn.smartrick.metaverse.domain.dto.update.BlockchainUpdateDTO;
 import cn.smartrick.metaverse.domain.vo.BlockchainVO;
 import cn.smartrick.metaverse.domain.vo.excel.BlockchainExcelVO;
-
 
 import java.util.List;
 
@@ -74,4 +69,5 @@ public interface BlockchainService {
      * @author SmartRick
      */
     public List<BlockchainExcelVO> queryBatchExportData(List<Long> idList);
+
 }

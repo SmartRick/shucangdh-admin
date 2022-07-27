@@ -53,9 +53,11 @@ public enum ResponseCode implements CustomizeResultCode {
     NEED_VERIFY(3001, "请先进行验证"),
     LOGIN_LOCKED(3002, "登录失败，该账号被锁定，请%d分后再尝试"),
 
-    /*部门错误*/
-    DEPARTMENT_NOT_EXIST(5007, "数据库不存在"),
-    DEPARTMENT_ALREADY_EXIST(5008, "数据库已存在"),
+    /*数据操作错误*/
+    DATA_NOT_EXIST(5007, "数据不存在"),
+    DATA_ALREADY_EXIST(5008, "数据已存在"),
+    DATA_INSERT_FAIL(5009, "数据添加失败"),
+    DATA_UPDATE_FAIL(50010, "数据更新失败"),
 
 
     /*运行时异常*/

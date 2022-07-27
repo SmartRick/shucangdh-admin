@@ -29,8 +29,8 @@ public class TagVO {
     @ApiModelProperty("link")
     private String link;
 
-    @ApiModelProperty("backgroundColor")
-    private String backgroundcolor;
+    @ApiModelProperty("background_color")
+    private String backgroundColor;
 
 
 }

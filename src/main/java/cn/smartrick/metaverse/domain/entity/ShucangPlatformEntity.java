@@ -1,13 +1,12 @@
 package cn.smartrick.metaverse.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
 import cn.smartrick.metaverse.common.domain.BaseEntity;
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * [  ]
@@ -16,7 +15,7 @@ import lombok.Data;
  * @version 1.0
  * @company SmartRick
  * @copyright (c)  SmartRickInc. All rights reserved.
- * @date 2022-07-27 10:26:37
+ * @date 2022-07-27 10:55:42
  * @since JDK1.8
  */
 @Data

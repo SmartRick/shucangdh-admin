@@ -33,7 +33,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/tag")
-@Api(value = "",tags = {""})
+@Api(value = "链接或标签",tags = {"链接或标签"})
 public class TagController extends BaseController {
 
     @Autowired

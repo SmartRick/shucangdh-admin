@@ -1,13 +1,12 @@
 package cn.smartrick.metaverse.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
 import cn.smartrick.metaverse.common.domain.BaseEntity;
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * [  ]
@@ -16,12 +15,12 @@ import lombok.Data;
  * @version 1.0
  * @company SmartRick
  * @copyright (c)  SmartRickInc. All rights reserved.
- * @date 2022-07-27 10:26:37
+ * @date 2022-07-27 10:55:42
  * @since JDK1.8
  */
 @Data
 @TableName("t_blockchain")
-public class BlockchainEntity extends BaseEntity implements Serializable{
+public class BlockchainEntity extends BaseEntity implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -44,15 +43,16 @@ public class BlockchainEntity extends BaseEntity implements Serializable{
     /**
      * link
      */
+
     @ApiModelProperty("link")
     private String link;
 
 
     /**
-     * backgroundColor
+     * background_color
      */
-    @ApiModelProperty("backgroundColor")
-    private String backgroundcolor;
+    @ApiModelProperty("background_color")
+    private String backgroundColor;
 
 
 }

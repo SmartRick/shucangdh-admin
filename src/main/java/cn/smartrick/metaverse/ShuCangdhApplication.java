@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @Date: 2022/7/27 10:30
  * @Author: SmartRick
- * @Description: TODO
+ * @Description: 数藏导航项目
  */
 @SpringBootApplication
 public class ShuCangdhApplication {

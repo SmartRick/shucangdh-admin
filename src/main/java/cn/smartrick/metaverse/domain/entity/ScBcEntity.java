@@ -1,13 +1,13 @@
 package cn.smartrick.metaverse.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
 import cn.smartrick.metaverse.common.domain.BaseEntity;
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * [  ]
@@ -20,6 +20,7 @@ import lombok.Data;
  * @since JDK1.8
  */
 @Data
+@AllArgsConstructor
 @TableName("t_sc_bc")
 public class ScBcEntity extends BaseEntity implements Serializable{
 
@@ -31,14 +32,14 @@ public class ScBcEntity extends BaseEntity implements Serializable{
      * sc_id
      */
     @ApiModelProperty("sc_id")
-    private Long scId;
+    private Integer scId;
 
 
     /**
      * bc_id
      */
     @ApiModelProperty("bc_id")
-    private Long bcId;
+    private Integer bcId;
 
 
 }

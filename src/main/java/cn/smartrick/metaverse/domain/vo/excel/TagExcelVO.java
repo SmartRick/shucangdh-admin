@@ -27,8 +27,8 @@ public class TagExcelVO {
     @Excel(name = "link")
     private String link;
 
-    @Excel(name = "backgroundColor")
-    private String backgroundcolor;
+    @Excel(name = "background_color")
+    private String backgroundColor;
 
 
 
