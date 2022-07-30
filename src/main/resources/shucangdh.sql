@@ -11,7 +11,7 @@
  Target Server Version : 50714
  File Encoding         : 65001
 
- Date: 27/07/2022 16:40:56
+ Date: 30/07/2022 10:38:20
 */
 
 SET NAMES utf8mb4;
@@ -30,16 +30,20 @@ CREATE TABLE `t_blockchain`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_blockchain
 -- ----------------------------
-INSERT INTO `t_blockchain` VALUES (1, '', '', '', '#FFFFFF', '2022-07-27 11:15:08', '2022-07-27 14:02:55');
-INSERT INTO `t_blockchain` VALUES (2, '', '', '', '#FFFFFF', '2022-07-27 11:16:16', '2022-07-27 14:03:04');
-INSERT INTO `t_blockchain` VALUES (4, '', '', '', '#FFFFFF', '2022-07-27 13:51:01', '2022-07-27 14:07:28');
-INSERT INTO `t_blockchain` VALUES (5, '', '', 'http://123', '#FFFFFF', '2022-07-27 13:52:21', '2022-07-27 14:14:51');
-INSERT INTO `t_blockchain` VALUES (6, '蚂蚁链3', '蚂蚁旗下', 'http://123', '#FFFFFA', '2022-07-27 14:16:14', '2022-07-27 14:17:36');
+INSERT INTO `t_blockchain` VALUES (16, '速藏', NULL, 'https://scan.jxrchain.pro', NULL, '2022-07-28 16:08:40', '2022-07-28 16:08:40');
+INSERT INTO `t_blockchain` VALUES (17, '秘宝(Nervos)', NULL, 'https://explorer.mibao.net', NULL, '2022-07-28 16:08:40', '2022-07-28 16:08:40');
+INSERT INTO `t_blockchain` VALUES (18, '百度超级链(XuperChain)', NULL, 'https://xuper.baidu.com', NULL, '2022-07-28 16:08:40', '2022-07-28 16:08:40');
+INSERT INTO `t_blockchain` VALUES (19, '腾讯至信链', NULL, 'https://zxscan.qq.com', NULL, '2022-07-28 16:08:40', '2022-07-28 16:08:40');
+INSERT INTO `t_blockchain` VALUES (20, 'BSN文昌链', NULL, 'https://wenchang.bianjie.ai', NULL, '2022-07-28 16:08:40', '2022-07-28 16:08:40');
+INSERT INTO `t_blockchain` VALUES (21, '秦储数藏', NULL, 'https://scan.qcsc.vip', NULL, '2022-07-28 16:08:40', '2022-07-28 16:08:40');
+INSERT INTO `t_blockchain` VALUES (22, 'NFTSSCAN', NULL, 'https://www.nfts-scan.com', NULL, '2022-07-28 16:08:40', '2022-07-28 16:08:40');
+INSERT INTO `t_blockchain` VALUES (23, '京东智臻链', NULL, 'https://openchain.jd.com', NULL, '2022-07-28 16:08:40', '2022-07-28 16:08:40');
+INSERT INTO `t_blockchain` VALUES (24, '智臻链浏览器', NULL, 'http://jdd-nft.jd.com', NULL, '2022-07-28 16:08:40', '2022-07-28 16:08:40');
 
 -- ----------------------------
 -- Table structure for t_sc_bc
