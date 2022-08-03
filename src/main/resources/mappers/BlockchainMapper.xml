@@ -18,10 +18,10 @@
         from t_blockchain
         <where>
             <if test="queryDTO.blockchain != null and queryDTO.blockchain != ''">
-                AND blockchain = #{queryDTO.blockchain}
+                AND blockchain LIKE concat('%',#{queryDTO.blockchain},'%')
             </if>
             <if test="queryDTO.remark != null and queryDTO.remark != ''">
-                AND remark = #{queryDTO.remark}
+                AND remark LIKE concat('%',#{queryDTO.remark},'%')
             </if>
             <if test="queryDTO.link != null and queryDTO.link != ''">
                 AND link = #{queryDTO.link}

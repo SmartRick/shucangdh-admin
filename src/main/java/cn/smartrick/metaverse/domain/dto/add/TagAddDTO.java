@@ -26,9 +26,8 @@ public class TagAddDTO {
     @ApiModelProperty("link")
     private String link;
 
-    @Pattern(regexp = "^#\\w{6}$",message = "背景颜色值格式错误")
+    @Pattern(regexp = "^rgba\\(\\s*((\\d{1,2}|1\\d\\d|2([0-4]\\d|5[0-5]))\\s*,\\s*){2}((\\d{1,2}|1\\d\\d|2([0-4]\\d|5[0-5]))\\s*)(,\\s*(0\\.\\d+|1))\\)$",message = "背景颜色值格式错误")
     @ApiModelProperty("backgroundColor")
     private String backgroundColor;
-
 
 }
