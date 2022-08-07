@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class ShucangPlatformExcelVO {
     @Excel(name = "id")
-    private Long id;
+    private Integer id;
 
     @Excel(name = "name")
     private String name;

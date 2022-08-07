@@ -84,4 +84,17 @@ public interface ShucangPlatformService {
      * @author SmartRick
      */
     public ResponseDTO browse(Integer scId);
+
+
+    /**
+     * 数字藏品平台投稿
+     * @author SmartRick
+     */
+    public ResponseDTO<String> contribute(ShucangPlatformAddDTO addDTO);
+
+    /**
+     * 数字藏品平台投稿
+     * @author SmartRick
+     */
+    public ResponseDTO<String> reviewPlatform(Integer scId,boolean isPass);
 }

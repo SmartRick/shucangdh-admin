@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class BlockchainVO {
 
     @ApiModelProperty("id")
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty("blockchain")
     private String blockchain;

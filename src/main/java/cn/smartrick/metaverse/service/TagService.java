@@ -74,4 +74,15 @@ public interface TagService {
      * @author SmartRick
      */
     public List<TagExcelVO> queryBatchExportData(List<Long> idList);
+
+
+    /**
+     * 根据类型代码查询该类型所有名称（去重）
+     *
+     * @param tagType 类型编码
+     * @return
+     */
+    public List<String> queryTagNamesByType(Integer tagType);
+
+
 }

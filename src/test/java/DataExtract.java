@@ -1,7 +1,9 @@
 import cn.hutool.core.util.StrUtil;
 import cn.smartrick.metaverse.ShuCangdhApplication;
 import cn.smartrick.metaverse.domain.dto.add.BlockchainAddDTO;
+import cn.smartrick.metaverse.domain.dto.add.ShucangPlatformAddDTO;
 import cn.smartrick.metaverse.service.BlockchainService;
+import cn.smartrick.metaverse.service.ShucangPlatformService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +31,17 @@ public class DataExtract {
 
     @Autowired
     private BlockchainService blockchainService;
+    @Autowired
+    private ShucangPlatformService shucangPlatformService;
 
 
     @Test
     public void dataExtractOne() throws IOException {
-        File file = new File("D:\\workdir\\java_work\\NFT\\README.md");
+        File file = new File("G:\\project\\java\\normal\\NFT\\README1.md");
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String line = null;
-        Pattern compile = Pattern.compile("\\|(\\d)\\|(.*)\\|\\[(.*)\\]\\((.*)\\).*");
+        Pattern compile = Pattern.compile("\\|(\\d*)\\|(.*)\\|\\[(.*)\\]\\((.*)\\).*");
 
         while ((line = bufferedReader.readLine()) != null) {
             if (StrUtil.isNotBlank(line)) {

@@ -1,5 +1,6 @@
 package cn.smartrick.metaverse.controller;
 
+import cn.smartrick.metaverse.common.constant.MarketModel;
 import cn.smartrick.metaverse.common.domain.PageResultDTO;
 import cn.smartrick.metaverse.common.domain.BaseController;
 import cn.smartrick.metaverse.common.domain.ResponseDTO;
@@ -32,7 +33,7 @@ import java.util.List;
  * @since JDK1.8
  */
 @RestController
-@RequestMapping(value = "/shucangPlatform")
+@RequestMapping(value = "/platform")
 @Api(value = "数藏平台", tags = {"数藏平台"})
 public class ShucangPlatformController extends BaseController {
 
@@ -110,5 +111,25 @@ public class ShucangPlatformController extends BaseController {
     @GetMapping("/browse")
     public ResponseDTO browse(@RequestParam("scId") @ApiParam(value = "数藏平台Id", name = "scId", required = true) Integer scId) {
         return shucangPlatformService.browse(scId);
+    }
+
+    @ApiOperation(value = "查询市场模式", notes = "@author SmartRick")
+    @GetMapping("/marketModel")
+    public ResponseDTO marketModel() {
+        return ResponseDTO.succData(MarketModel.list());
+    }
+
+
+    @ApiOperation(value = "数字藏品平台投稿", notes = "@author SmartRick")
+    @PostMapping("/contribute")
+    public ResponseDTO<String> contribute(@RequestBody @Validated @ApiParam(value = "", name = "platform", required = true) ShucangPlatformAddDTO platform) {
+        return shucangPlatformService.contribute(platform);
+    }
+
+    @ApiOperation(value = "审核数藏平台", notes = "@author SmartRick")
+    @PostMapping("/reviewPlatform")
+    public ResponseDTO<String> reviewPlatform(@RequestParam("scId") @ApiParam(value = "", name = "scId", required = true) Integer scId,
+                                              @RequestParam("isPass") @ApiParam(value = "", name = "isPass", required = true) boolean isPass) {
+        return shucangPlatformService.reviewPlatform(scId, isPass);
     }
 }

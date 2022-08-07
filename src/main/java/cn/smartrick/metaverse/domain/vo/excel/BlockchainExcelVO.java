@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class BlockchainExcelVO {
     @Excel(name = "id")
-    private Long id;
+    private Integer id;
 
     @Excel(name = "blockchain")
     private String blockchain;

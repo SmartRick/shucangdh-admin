@@ -21,15 +21,16 @@
         FROM t_shucang_platform sp
         LEFT JOIN t_sc_bc sb ON sb.sc_id = sp.id
         LEFT JOIN t_sc_tag st ON st.sc_id = sp.id
+        LEFT JOIN t_tag t ON st.tag_id = t.id
         <where>
             <if test="queryDTO.name != null and queryDTO.name != ''">
-                AND sp.`name` = #{queryDTO.name}
+                AND sp.`name` LIKE concat('%',#{queryDTO.name},'%')
             </if>
             <if test="queryDTO.coverImg != null and queryDTO.coverImg != ''">
                 AND sp.cover_img = #{queryDTO.coverImg}
             </if>
             <if test="queryDTO.remark != null and queryDTO.remark != ''">
-                AND sp.remark = #{queryDTO.remark}
+                AND sp.remark LIKE concat('%',#{queryDTO.remark},'%')
             </if>
             <if test="queryDTO.marketModel != null and queryDTO.marketModel != ''">
                 AND sp.market_model = #{queryDTO.marketModel}
@@ -49,8 +50,8 @@
                 AND sp.update_time &lt;= #{queryDTO.updateTimeEnd}
             </if>
 
-            <if test="queryDTO.tagId != null">
-                AND st.tag_id = #{queryDTO.tagId}
+            <if test="queryDTO.tagName != null and queryDTO.tagName != ''">
+                AND t.tag_name = #{queryDTO.tagName}
             </if>
 
             <if test="queryDTO.blockchainId != null">

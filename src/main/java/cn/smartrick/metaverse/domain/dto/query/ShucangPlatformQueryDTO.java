@@ -31,8 +31,14 @@ public class ShucangPlatformQueryDTO extends PageParamDTO {
     @ApiModelProperty("market_model")
     private String marketModel;
 
-    @ApiModelProperty("标签")
-    private Integer tagId;
+    @ApiModelProperty("标签名称")
+    private String tagName;
+
+    /**
+     * 是否审查通过了
+     */
+    @ApiModelProperty("reviewed")
+    private Boolean reviewed;
 
     @ApiModelProperty("区块链")
     private Integer blockchainId;

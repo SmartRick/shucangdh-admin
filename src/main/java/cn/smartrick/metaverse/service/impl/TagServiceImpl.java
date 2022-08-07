@@ -123,4 +123,9 @@ public class TagServiceImpl implements TagService{
     public List<TagExcelVO> queryBatchExportData(List<Long> idList) {
         return tagMapper.selectBatchExportData(idList);
     }
+
+    @Override
+    public List<String> queryTagNamesByType(Integer tagType) {
+        return tagMapper.selectTagNamesByType(tagType);
+    }
 }

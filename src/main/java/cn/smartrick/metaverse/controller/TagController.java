@@ -99,4 +99,10 @@ public class TagController extends BaseController {
         downloadExcel("", workbook, response);
     }
 
+    @ApiOperation(value = "根据标签类型查询标签下所有的名称",notes = "@author SmartRick")
+    @GetMapping("/tagNames/{tagType}")
+    public ResponseDTO<List<String>> queryTagNames(@PathVariable @ApiParam(value = "tagType", name = "tagType", required = true) Integer tagType) {
+        return ResponseDTO.succData(tagService.queryTagNamesByType(tagType));
+    }
+
 }

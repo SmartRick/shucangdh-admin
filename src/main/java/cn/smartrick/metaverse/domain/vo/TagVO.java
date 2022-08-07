@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class TagVO {
 
     @ApiModelProperty("id")
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty("tag_name")
     private String tagName;

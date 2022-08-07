@@ -51,7 +51,7 @@ public class ShucangPlatformEntity extends BaseEntity implements Serializable{
      * market_model
      */
     @ApiModelProperty("market_model")
-    private String marketModel;
+    private Integer marketModel;
 
 
     /**
@@ -67,5 +67,10 @@ public class ShucangPlatformEntity extends BaseEntity implements Serializable{
     @ApiModelProperty("lick_num")
     private Integer lickNum;
 
+    /**
+     * 是否审查通过了
+     */
+    @ApiModelProperty("reviewed")
+    private Boolean reviewed;
 
 }

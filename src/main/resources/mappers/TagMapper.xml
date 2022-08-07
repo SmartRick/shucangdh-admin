@@ -8,17 +8,17 @@
 
     <select id="selectByPage" resultMap="TagVO">
         select
-          id,
-          tag_name,
-          tag_type,
-          link,
-          background_color,
-          created_at,
-          updated_at
+        id,
+        tag_name,
+        tag_type,
+        link,
+        background_color,
+        created_at,
+        updated_at
         from t_tag
         <where>
             <if test="queryDTO.tagName != null and queryDTO.tagName != ''">
-                AND tag_name = #{queryDTO.tagName}
+                AND tag_name LIKE concat('%',#{queryDTO.tagName},'%')
             </if>
             <if test="queryDTO.tagType != null">
                 AND tag_type = #{queryDTO.tagType}
@@ -45,13 +45,13 @@
 
     <select id="selectAllExportData" resultMap="TagExcelVO">
         select
-           id,
-           tag_name,
-           tag_type,
-           link,
-           background_color,
-           created_at,
-           updated_at
+        id,
+        tag_name,
+        tag_type,
+        link,
+        background_color,
+        created_at,
+        updated_at
         from t_tag
         <where>
             <if test="queryDTO.tagName != null and queryDTO.tagName != ''">
@@ -82,18 +82,29 @@
 
     <select id="selectBatchExportData" resultMap="TagExcelVO">
         select
-         id,
-         tag_name,
-         tag_type,
-         link,
-         background_color,
-         created_at,
-         updated_at
+        id,
+        tag_name,
+        tag_type,
+        link,
+        background_color,
+        created_at,
+        updated_at
         from t_tag
         where id in
         <foreach collection="idList" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
+    </select>
+
+    <select id="selectListByScId" resultMap="TagVO">
+        SELECT t.*
+        FROM t_tag AS t
+                 LEFT JOIN t_sc_tag as st ON t.id = st.tag_id
+        WHERE st.sc_id = #{scId}
+    </select>
+
+    <select id="selectTagNamesByType" resultType="String">
+        SELECT DISTINCT tag_name FROM `t_tag` WHERE tag_type = #{typeCode}
     </select>
 
 </mapper>

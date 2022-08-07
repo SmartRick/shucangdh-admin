@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class TagExcelVO {
     @Excel(name = "id")
-    private Long id;
+    private Integer id;
 
     @Excel(name = "tag_name")
     private String tagName;

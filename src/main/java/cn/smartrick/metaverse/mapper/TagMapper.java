@@ -29,22 +29,42 @@ public interface TagMapper extends BaseMapper<TagEntity> {
 
     /**
      * 分页查询
+     *
      * @param queryDTO
      * @return TagVO
-    */
+     */
     IPage<TagVO> selectByPage(Page page, @Param("queryDTO") TagQueryDTO queryDTO);
 
     /**
      * 查询所有导出数据
+     *
      * @param queryDTO
      * @return
      */
-    List<TagExcelVO> selectAllExportData(@Param("queryDTO")TagQueryDTO queryDTO);
+    List<TagExcelVO> selectAllExportData(@Param("queryDTO") TagQueryDTO queryDTO);
 
-        /**
-         * 查询批量导出数据
-         * @param idList
-         * @return
-         */
-    List<TagExcelVO> selectBatchExportData(@Param("idList")List<Long> idList);
+    /**
+     * 查询批量导出数据
+     *
+     * @param idList
+     * @return
+     */
+    List<TagExcelVO> selectBatchExportData(@Param("idList") List<Long> idList);
+
+
+    /**
+     * 查询数字藏品ID绑定的Tag
+     *
+     * @param scId 数字藏品Id
+     * @return
+     */
+    List<TagVO> selectListByScId(@Param("scId") Integer scId);
+
+    /**
+     * 根据类型代码查询该类型所有名称（去重）
+     *
+     * @param typeCode 类型编码
+     * @return
+     */
+    List<String> selectTagNamesByType(@Param("typeCode") Integer typeCode);
 }

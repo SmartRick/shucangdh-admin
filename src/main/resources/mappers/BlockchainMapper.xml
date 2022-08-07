@@ -8,13 +8,13 @@
 
     <select id="selectByPage" resultMap="BlockchainVO">
         select
-          id,
-          blockchain,
-          remark,
-          link,
-          background_color,
-          created_at,
-          updated_at
+        id,
+        blockchain,
+        remark,
+        link,
+        background_color,
+        created_at,
+        updated_at
         from t_blockchain
         <where>
             <if test="queryDTO.blockchain != null and queryDTO.blockchain != ''">
@@ -45,13 +45,13 @@
 
     <select id="selectAllExportData" resultMap="BlockchainExcelVO">
         select
-           id,
-           blockchain,
-           remark,
-           link,
-           background_color,
-           created_at,
-           updated_at
+        id,
+        blockchain,
+        remark,
+        link,
+        background_color,
+        created_at,
+        updated_at
         from t_blockchain
         <where>
             <if test="queryDTO.blockchain != null and queryDTO.blockchain != ''">
@@ -82,18 +82,25 @@
 
     <select id="selectBatchExportData" resultMap="BlockchainExcelVO">
         select
-         id,
-         blockchain,
-         remark,
-         link,
-         background_color,
-         created_at,
-         updated_at
+        id,
+        blockchain,
+        remark,
+        link,
+        background_color,
+        created_at,
+        updated_at
         from t_blockchain
         where id in
         <foreach collection="idList" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
+    </select>
+
+    <select id="selectListByScId" resultMap="BlockchainVO">
+        SELECT b.*
+        FROM t_blockchain AS b
+                 LEFT JOIN t_sc_bc as sb ON b.id = sb.bc_id
+        WHERE sb.sc_id = #{scId}
     </select>
 
 </mapper>

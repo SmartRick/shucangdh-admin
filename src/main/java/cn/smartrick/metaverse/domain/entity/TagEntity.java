@@ -34,7 +34,7 @@ public class TagEntity extends BaseEntity implements Serializable{
 
 
     /**
-     * tag_type
+     * 标签类型0 客户端、1 天眼查
      */
     @ApiModelProperty("tag_type")
     private Integer tagType;
@@ -53,5 +53,14 @@ public class TagEntity extends BaseEntity implements Serializable{
     @ApiModelProperty("background_color")
     private String backgroundColor;
 
+
+    //客户端类型
+    public static final int TAG_TYPE_CLIENT = 1;
+    //背景信息标签
+    public static final int TAG_TYPE_BACKGROUND = 2;
+    //服务公众号
+    public static final int TAG_TYPE_SERVER = 3;
+    //小程序
+    public static final int TAG_TYPE_LITTLE_PROGRAM = 4;
 
 }

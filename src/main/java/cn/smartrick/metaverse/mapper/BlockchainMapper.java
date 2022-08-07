@@ -47,4 +47,6 @@ public interface BlockchainMapper extends BaseMapper<BlockchainEntity> {
          * @return
          */
     List<BlockchainExcelVO> selectBatchExportData(@Param("idList")List<Long> idList);
+
+    List<BlockchainVO> selectListByScId(@Param("scId") Integer scId);
 }
