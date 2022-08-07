@@ -55,4 +55,29 @@ public class DataExtract {
         }
 
     }
+
+    @Test
+    public void dataExtractOne() throws IOException {
+        File file = new File("D:\\workdir\\java_work\\NFT\\README.md");
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line = null;
+        Pattern compile = Pattern.compile("\\|(\\d)\\|(.*)\\|\\[(.*)\\]\\((.*)\\).*");
+
+        while ((line = bufferedReader.readLine()) != null) {
+            if (StrUtil.isNotBlank(line)) {
+                line = line.trim();
+                Matcher matcher = compile.matcher(line);
+                if (matcher.matches()) {
+                    BlockchainAddDTO blockchainAddDTO = new BlockchainAddDTO();
+                    blockchainAddDTO.setBlockchain(matcher.group(2));
+                    blockchainAddDTO.setLink(matcher.group(3));
+                    blockchainService.add(blockchainAddDTO);
+                }else{
+                    System.out.println(line+"未匹配上");
+                }
+            }
+        }
+
+    }
 }

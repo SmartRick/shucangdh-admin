@@ -7,10 +7,10 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    url: jdbc:mysql://192.168.163.16:3308/fun_culture?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
-    url: jdbc:mysql://192.168.128.61:3306/shucangdh?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    url: jdbc:mysql://192.168.10.2:3306/shucangdh?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     username: root
     #    password: funadmin123
-    password: 123456
+    password: root
     # Druid数据源监控配置
     druid:
       # 连接池的配置信息

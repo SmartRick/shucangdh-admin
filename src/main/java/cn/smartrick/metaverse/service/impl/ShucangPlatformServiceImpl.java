@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * [  ]
@@ -70,6 +71,14 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
     public ResponseDTO<PageResultDTO<ShucangPlatformVO>> queryByPage(ShucangPlatformQueryDTO queryDTO) {
         Page page = SmartPageUtil.convert2QueryPage(queryDTO);
         IPage<ShucangPlatformVO> voList = shucangPlatformMapper.selectByPage(page, queryDTO);
+        for (ShucangPlatformVO record : voList.getRecords()) {
+            List<ScBcEntity> scBcEntities = scBcMapper.selectList(new LambdaQueryWrapper<ScBcEntity>().eq(ScBcEntity::getScId, record.getId()));
+            List<Integer> bcIds = scBcEntities.stream().map(ScBcEntity::getBcId).collect(Collectors.toList());
+            record.setBlockchainIds(bcIds);
+            List<ScTagEntity> scTagEntities = scTagMapper.selectList(new LambdaQueryWrapper<ScTagEntity>().eq(ScTagEntity::getScId, record.getId()));
+            List<Integer> tagIds = scTagEntities.stream().map(ScTagEntity::getTagId).collect(Collectors.toList());
+            record.setTagIds(tagIds);
+        }
         PageResultDTO<ShucangPlatformVO> pageResultDTO = SmartPageUtil.convert2PageResult(voList);
         return ResponseDTO.succData(pageResultDTO);
     }

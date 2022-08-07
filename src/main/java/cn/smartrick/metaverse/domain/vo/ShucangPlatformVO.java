@@ -1,8 +1,9 @@
 package cn.smartrick.metaverse.domain.vo;
 
-import lombok.Data;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.util.List;
 
 /**
  *  [  ]
@@ -38,5 +39,10 @@ public class ShucangPlatformVO {
     @ApiModelProperty("lick_num")
     private Integer lickNum;
 
+    @ApiModelProperty("blockchain_list")
+    private List<Integer> blockchainIds;
+
+    @ApiModelProperty("tag_list")
+    private List<Integer> tagIds;
 
 }

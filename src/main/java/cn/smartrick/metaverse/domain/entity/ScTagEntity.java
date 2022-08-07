@@ -1,7 +1,8 @@
 package cn.smartrick.metaverse.domain.entity;
 
-import cn.smartrick.metaverse.common.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -22,12 +23,21 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @TableName("t_sc_tag")
-public class ScTagEntity extends BaseEntity implements Serializable{
+public class ScTagEntity implements Serializable{
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
+    public ScTagEntity(Integer scId, Integer tagId) {
+        this.scId = scId;
+        this.tagId = tagId;
+    }
 
+    /**
+     * 主键id
+     */
+    @TableId(type = IdType.AUTO)
+    private Integer id;
     /**
      * sc_id
      */
