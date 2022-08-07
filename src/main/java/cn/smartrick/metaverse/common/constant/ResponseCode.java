@@ -58,6 +58,7 @@ public enum ResponseCode implements CustomizeResultCode {
     DATA_ALREADY_EXIST(5008, "数据已存在"),
     DATA_INSERT_FAIL(5009, "数据添加失败"),
     DATA_UPDATE_FAIL(50010, "数据更新失败"),
+    DATA_REMOVE_FAIL(50011, "数据删除失败"),
 
 
     /*运行时异常*/
