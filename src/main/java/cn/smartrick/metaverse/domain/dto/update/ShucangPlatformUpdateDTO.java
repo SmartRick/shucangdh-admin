@@ -16,6 +16,6 @@ import lombok.Data;
 @Data
 public class ShucangPlatformUpdateDTO extends ShucangPlatformAddDTO {
 
-    private Long id;
+    private Integer id;
 
 }

@@ -16,6 +16,6 @@ import lombok.Data;
 @Data
 public class BlockchainUpdateDTO extends BlockchainAddDTO {
 
-    private Long id;
+    private Integer id;
 
 }

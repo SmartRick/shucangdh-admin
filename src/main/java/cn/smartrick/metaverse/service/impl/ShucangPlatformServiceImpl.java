@@ -12,6 +12,7 @@ import cn.smartrick.metaverse.domain.entity.ScTagEntity;
 import cn.smartrick.metaverse.domain.entity.ShucangPlatformEntity;
 import cn.smartrick.metaverse.domain.entity.TagEntity;
 import cn.smartrick.metaverse.domain.vo.ShucangPlatformVO;
+import cn.smartrick.metaverse.domain.vo.TagVO;
 import cn.smartrick.metaverse.domain.vo.excel.ShucangPlatformExcelVO;
 import cn.smartrick.metaverse.exception.BusinessException;
 import cn.smartrick.metaverse.mapper.*;
@@ -93,7 +94,7 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
             throw new BusinessException(ResponseCode.DATA_INSERT_FAIL);
         }
         //Tag存储
-        this.storeTags(entity.getId(), addDTO.getTagIds());
+        this.storeTags(entity.getId(), addDTO.getTagList());
         //Blockchain存储
         this.storeBlockchains(entity.getId(), addDTO.getBlockchainIds());
 
@@ -113,7 +114,7 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
             throw new BusinessException(ResponseCode.DATA_UPDATE_FAIL);
         }
         //Tag存储
-        this.storeTags(entity.getId(), updateDTO.getTagIds());
+        this.storeTags(entity.getId(), updateDTO.getTagList());
         //Blockchain存储
         this.storeBlockchains(entity.getId(), updateDTO.getBlockchainIds());
 
@@ -216,7 +217,7 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
             throw new BusinessException(ResponseCode.DATA_INSERT_FAIL);
         }
         //Tag存储
-        this.storeTags(entity.getId(), addDTO.getTagIds());
+        this.storeTags(entity.getId(), addDTO.getTagList());
         //Blockchain存储
         this.storeBlockchains(entity.getId(), addDTO.getBlockchainIds());
 
@@ -243,14 +244,18 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
      * Tag存储
      *
      * @param scId
-     * @param tagIds
+     * @param tagList
      */
-    private void storeTags(Integer scId, List<Integer> tagIds) {
-        if (CollectionUtil.isNotEmpty(tagIds)) {
+    private void storeTags(Integer scId, List<TagVO> tagList) {
+        if (CollectionUtil.isNotEmpty(tagList)) {
             scTagMapper.delete(new LambdaQueryWrapper<ScTagEntity>().eq(ScTagEntity::getScId, scId));
-            for (Integer tagId : tagIds) {
-                if (tagMapper.selectById(tagId) == null) throw new BusinessException("标签ID：" + tagId + "不存在");
-                scTagMapper.insert(new ScTagEntity(scId, tagId));
+
+            for (TagVO tag : tagList) {
+                TagEntity tagEntity = new TagEntity();
+                tagEntity.setTagType(tag.getTagType());
+                tagEntity.setTagName(tag.getTagName());
+                tagMapper.insert(tagEntity);
+                scTagMapper.insert(new ScTagEntity(scId, tagEntity.getId()));
             }
         }
     }

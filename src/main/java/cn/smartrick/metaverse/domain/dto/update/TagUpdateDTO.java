@@ -16,6 +16,6 @@ import lombok.Data;
 @Data
 public class TagUpdateDTO extends TagAddDTO {
 
-    private Long id;
+    private Integer id;
 
 }

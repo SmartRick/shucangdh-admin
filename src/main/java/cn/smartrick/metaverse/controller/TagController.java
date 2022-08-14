@@ -1,21 +1,21 @@
 package cn.smartrick.metaverse.controller;
 
-import cn.smartrick.metaverse.common.domain.PageResultDTO;
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.smartrick.metaverse.common.domain.BaseController;
+import cn.smartrick.metaverse.common.domain.PageResultDTO;
 import cn.smartrick.metaverse.common.domain.ResponseDTO;
 import cn.smartrick.metaverse.common.domain.ValidateList;
 import cn.smartrick.metaverse.domain.dto.add.TagAddDTO;
-import cn.smartrick.metaverse.domain.dto.update.TagUpdateDTO;
 import cn.smartrick.metaverse.domain.dto.query.TagQueryDTO;
+import cn.smartrick.metaverse.domain.dto.update.TagUpdateDTO;
 import cn.smartrick.metaverse.domain.vo.TagVO;
 import cn.smartrick.metaverse.domain.vo.excel.TagExcelVO;
 import cn.smartrick.metaverse.service.TagService;
-import cn.afterturn.easypoi.excel.ExcelExportUtil;
-import cn.afterturn.easypoi.excel.entity.ExportParams;
-import org.apache.poi.ss.usermodel.Workbook;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -104,5 +104,21 @@ public class TagController extends BaseController {
     public ResponseDTO<List<String>> queryTagNames(@PathVariable @ApiParam(value = "tagType", name = "tagType", required = true) Integer tagType) {
         return ResponseDTO.succData(tagService.queryTagNamesByType(tagType));
     }
+
+    /**
+     * iBox
+     * APP: www.iboxapp.com
+     * WEB: www.iboxweb.com
+     *
+     * 警探
+     * APP: www.jintanapp.com
+     * WEB: www.惊叹web.com
+     *
+     * 平台管理
+     * APP: www.iboxapp.com
+     * WEB: www.iboxweb.com
+     * APP: www.jintanapp.com
+     * WEB: www.惊叹web.com
+     */
 
 }
