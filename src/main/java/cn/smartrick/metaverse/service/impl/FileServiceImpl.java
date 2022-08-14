@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +29,9 @@ public class FileServiceImpl implements FileService {
             if (StrUtil.isBlank(fileKey)) {
                 throw new BusinessException("上传文件失败：" + file.getOriginalFilename());
             }
-
-            fileKeyList.add(URLEncoder.encode(globalConfig.getOssDomain()+"/"+fileKey));
+            fileKeyList.add(globalConfig.getOssDomain()+"/"+fileKey);
         }
         return ResponseDTO.succData(fileKeyList);
     }
+
 }

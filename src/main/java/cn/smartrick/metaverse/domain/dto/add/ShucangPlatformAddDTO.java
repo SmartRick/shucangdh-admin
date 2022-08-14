@@ -1,6 +1,5 @@
 package cn.smartrick.metaverse.domain.dto.add;
 
-import cn.smartrick.metaverse.domain.vo.TagVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -23,7 +22,7 @@ public class ShucangPlatformAddDTO {
     @ApiModelProperty("name")
     private String name;
 
-    @NotBlank(message = "数藏平台Logo不能为空")
+//    @NotBlank(message = "数藏平台Logo不能为空")
     @ApiModelProperty("cover_img")
     private String coverImg;
 
@@ -33,9 +32,9 @@ public class ShucangPlatformAddDTO {
     @ApiModelProperty("market_model")
     private String marketModel;
 
-    @ApiModelProperty(value = "market_model", name = "关联的标签")
-    private List<TagVO> tagList;
+    @ApiModelProperty(value = "tagList", name = "关联的标签")
+    private List<TagAddDTO> tagList;
 
-    @ApiModelProperty(value = "market_model", name = "数藏上链信息")
-    private List<Integer> blockchainIds;
+    @ApiModelProperty(value = "blockchainIds", name = "数藏上链信息")
+    private List<Integer> blockchainList;
 }

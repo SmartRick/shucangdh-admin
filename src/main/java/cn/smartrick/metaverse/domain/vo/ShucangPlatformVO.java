@@ -1,9 +1,7 @@
 package cn.smartrick.metaverse.domain.vo;
 
-import cn.smartrick.metaverse.domain.vo.excel.TagExcelVO;
-import lombok.Data;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.util.List;
 
@@ -51,7 +49,7 @@ public class ShucangPlatformVO {
     private List<TagVO> tagList;
 
     @ApiModelProperty("blockchain_list")
-    private List<BlockchainVO> blockchainList;
+    private List<Integer> blockchainList;
 
 
 }

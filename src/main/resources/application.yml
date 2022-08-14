@@ -61,3 +61,10 @@ knife4j:
     username: admin
     # Basic认证密码
     password: admin
+
+
+admin-global:
+  oss-domain: http://rgl6i3hwh.hn-bkt.clouddn.com
+  oss-access-key: zleLSPC4eUhRu08F0vL7073UsX2kh8bGfSPbELFx
+  oss-secret-key: 5T2Gg_enE5Ie2skfe8J4BQTLKLcEoyLn6WvPUc_l
+  oss-bucket: shucangdh
