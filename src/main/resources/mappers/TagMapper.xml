@@ -103,8 +103,16 @@
         WHERE st.sc_id = #{scId}
     </select>
 
+    <select id="selectListByType" resultMap="TagVO">
+        SELECT *
+        FROM `t_tag`
+        WHERE tag_type = #{typeCode}
+    </select>
+
     <select id="selectTagNamesByType" resultType="String">
-        SELECT DISTINCT tag_name FROM `t_tag` WHERE tag_type = #{typeCode}
+        SELECT DISTINCT tag_name
+        FROM `t_tag`
+        WHERE tag_type = #{typeCode}
     </select>
 
 </mapper>

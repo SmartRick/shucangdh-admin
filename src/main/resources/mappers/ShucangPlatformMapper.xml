@@ -9,7 +9,7 @@
 
     <select id="selectByPage" resultMap="ShucangPlatformVO">
         select
-        sp.id,
+        DISTINCT sp.id,
         sp.`name`,
         sp.cover_img,
         sp.remark,
@@ -54,8 +54,11 @@
                 AND t.tag_name = #{queryDTO.tagName}
             </if>
 
-            <if test="queryDTO.blockchainId != null">
-                AND sb.bc_id = #{queryDTO.blockchainId}
+            <if test="queryDTO.blockchainList != null and queryDTO.blockchainList.size() > 0">
+                AND sb.bc_id in
+                <foreach collection="queryDTO.blockchainList" item="blockchainId" open=" (" close=") " separator=",">
+                    #{blockchainId}
+                </foreach>
             </if>
         </where>
     </select>
