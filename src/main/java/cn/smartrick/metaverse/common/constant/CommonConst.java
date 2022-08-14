@@ -19,4 +19,8 @@ public class CommonConst {
     public static final String PREFIX_LOGIN_RECORD_IP = PREFIX_COMMON + "LOGIN:IP:";
     //ip登录禁止标识
     public static final String PREFIX_LOGIN_LOCKED_IP = PREFIX_COMMON + "LOGIN:LOCKED:IP:";
+
+
+    public static final String[] allowImgExts = new String[]{"gif", "jpeg", "jpg", "png"};
+    public static final long singleImgMaximumSize = 2 * 1024 * 1024; //2MB
 }

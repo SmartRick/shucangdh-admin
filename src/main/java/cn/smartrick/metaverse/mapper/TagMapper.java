@@ -66,5 +66,7 @@ public interface TagMapper extends BaseMapper<TagEntity> {
      * @param typeCode 类型编码
      * @return
      */
+    List<TagVO> selectListByType(@Param("typeCode") Integer typeCode);
+
     List<String> selectTagNamesByType(@Param("typeCode") Integer typeCode);
 }

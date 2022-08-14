@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * [  ]
@@ -41,7 +42,7 @@ public class ShucangPlatformQueryDTO extends PageParamDTO {
     private Boolean reviewed;
 
     @ApiModelProperty("区块链")
-    private Integer blockchainId;
+    private List<Integer> blockchainList;
 
     @ApiModelProperty("创建时间-开始")
     private Date createTimeBegin;

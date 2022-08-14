@@ -74,7 +74,7 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
         IPage<ShucangPlatformVO> voList = shucangPlatformMapper.selectByPage(page, queryDTO);
         for (ShucangPlatformVO record : voList.getRecords()) {
             record.setBlockchainList(blockchainMapper.selectListByScId(record.getId()));
-            record.setTagList(tagMapper.selectListByScId(record.getId()));
+            record.setTagList(tagMapper.selectListByScId(record.getId()).stream().filter(item -> item.getTagType() == TagEntity.TAG_TYPE_CLIENT).collect(Collectors.toList()));
         }
         PageResultDTO<ShucangPlatformVO> pageResultDTO = SmartPageUtil.convert2PageResult(voList);
         return ResponseDTO.succData(pageResultDTO);

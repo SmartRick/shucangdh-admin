@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public enum MarketModel {
     MODEL_SECOND(1, "二级市场"),
-    MODEL_OUT_GIVE(2, "场外转赠送"),
+    MODEL_OUT_GIVE(2, "场外转赠"),
     MODEL_TRADE(3, "交易市场"),
     ;
 
@@ -50,5 +50,14 @@ public enum MarketModel {
             list.add(hashMap);
         });
         return list;
+    }
+
+    public static MarketModel nameOf(String name){
+        for (MarketModel value : MarketModel.values()) {
+            if(value.name.equals(name)){
+                return value;
+            }
+        }
+        return null;
     }
 }
