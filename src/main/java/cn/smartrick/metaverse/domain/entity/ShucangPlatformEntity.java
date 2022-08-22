@@ -1,5 +1,6 @@
 package cn.smartrick.metaverse.domain.entity;
 
+import cn.smartrick.metaverse.common.constant.MarketModel;
 import cn.smartrick.metaverse.common.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -51,7 +52,7 @@ public class ShucangPlatformEntity extends BaseEntity implements Serializable{
      * market_model
      */
     @ApiModelProperty("market_model")
-    private Integer marketModel;
+    private Integer marketModel = MarketModel.MODEL_ISSUE.getCode();
 
 
     /**
@@ -64,8 +65,8 @@ public class ShucangPlatformEntity extends BaseEntity implements Serializable{
     /**
      * lick_num
      */
-    @ApiModelProperty("lick_num")
-    private Integer lickNum;
+    @ApiModelProperty("like_num")
+    private Integer likeNum;
 
     /**
      * 是否审查通过了

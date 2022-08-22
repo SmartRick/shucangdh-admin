@@ -41,6 +41,12 @@ public class ShucangPlatformQueryDTO extends PageParamDTO {
     @ApiModelProperty("reviewed")
     private Boolean reviewed;
 
+    /**
+     * 查询的标签类型
+     */
+    @ApiModelProperty("tagTypes")
+    private List<Integer> tagTypes;
+
     @ApiModelProperty("区块链")
     private List<Integer> blockchainList;
 

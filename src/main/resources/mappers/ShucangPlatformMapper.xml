@@ -15,7 +15,7 @@
         sp.remark,
         sp.market_model,
         sp.browse_num,
-        sp.lick_num,
+        sp.like_num,
         sp.created_at,
         sp.updated_at
         FROM t_shucang_platform sp
@@ -71,7 +71,7 @@
         remark,
         market_model,
         browse_num,
-        lick_num,
+        like_num,
         created_at,
         updated_at
         from t_shucang_platform
@@ -113,7 +113,7 @@
         remark,
         market_model,
         browse_num,
-        lick_num,
+        like_num,
         created_at,
         updated_at
         from t_shucang_platform

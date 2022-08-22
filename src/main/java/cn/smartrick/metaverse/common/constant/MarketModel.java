@@ -1,7 +1,6 @@
 package cn.smartrick.metaverse.common.constant;
 
 import com.google.common.collect.Lists;
-import lombok.Data;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,6 +10,7 @@ public enum MarketModel {
     MODEL_SECOND(1, "二级市场"),
     MODEL_OUT_GIVE(2, "场外转赠"),
     MODEL_TRADE(3, "交易市场"),
+    MODEL_ISSUE(4, "官方宣发"),
     ;
 
     private int code;

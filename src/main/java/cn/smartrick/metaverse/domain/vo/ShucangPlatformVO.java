@@ -36,8 +36,8 @@ public class ShucangPlatformVO {
     @ApiModelProperty("browse_num")
     private Integer browseNum;
 
-    @ApiModelProperty("lick_num")
-    private Integer lickNum;
+    @ApiModelProperty("like_num")
+    private Integer likeNum;
 
     /**
      * 是否审查通过了

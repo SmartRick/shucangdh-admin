@@ -1,6 +1,7 @@
 package cn.smartrick.metaverse.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.smartrick.metaverse.common.constant.ResponseCode;
 import cn.smartrick.metaverse.common.domain.PageResultDTO;
 import cn.smartrick.metaverse.common.domain.ResponseDTO;
@@ -76,7 +77,11 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
         IPage<ShucangPlatformVO> voList = shucangPlatformMapper.selectByPage(page, queryDTO);
         for (ShucangPlatformVO record : voList.getRecords()) {
             record.setBlockchainList(blockchainMapper.selectListByScId(record.getId()).stream().map(BlockchainVO::getId).collect(Collectors.toList()));
-            record.setTagList(tagMapper.selectListByScId(record.getId()).stream().filter(item -> item.getTagType() == TagEntity.TAG_TYPE_CLIENT).collect(Collectors.toList()));
+            //只返回客户端需要查询的tag类型标签
+            record.setTagList(tagMapper.selectListByScId(record.getId())
+                    .stream()
+                    .filter(item -> queryDTO.getTagTypes().stream().anyMatch(type -> item.getTagType().equals(type)))
+                    .collect(Collectors.toList()));
         }
         PageResultDTO<ShucangPlatformVO> pageResultDTO = SmartPageUtil.convert2PageResult(voList);
         return ResponseDTO.succData(pageResultDTO);
@@ -112,7 +117,9 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
     @Transactional(rollbackFor = Exception.class)
     public ResponseDTO<String> modify(ShucangPlatformUpdateDTO updateDTO) {
         ShucangPlatformEntity entity = SmartBeanUtil.copy(updateDTO, ShucangPlatformEntity.class);
-        entity.setMarketModel(Integer.parseInt(updateDTO.getMarketModel()));
+        if (StrUtil.isNotBlank(updateDTO.getMarketModel())) {
+            entity.setMarketModel(Integer.parseInt(updateDTO.getMarketModel()));
+        }
         if (shucangPlatformMapper.updateById(entity) != 1) {
             throw new BusinessException(ResponseCode.DATA_UPDATE_FAIL);
         }
@@ -188,10 +195,10 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
     @Override
     public ResponseDTO like(Integer scId) {
         ShucangPlatformEntity shucangPlatformEntity = shucangPlatformMapper.selectById(scId);
-        if (shucangPlatformEntity != null) {
+        if (shucangPlatformEntity == null) {
             return ResponseDTO.wrap(ResponseCode.DATA_NOT_EXIST);
         }
-        shucangPlatformEntity.setLickNum(shucangPlatformEntity.getLickNum() + 1);
+        shucangPlatformEntity.setLikeNum(shucangPlatformEntity.getLikeNum() + 1);
         shucangPlatformMapper.updateById(shucangPlatformEntity);
         return ResponseDTO.succ();
     }
@@ -204,7 +211,7 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
     @Override
     public ResponseDTO browse(Integer scId) {
         ShucangPlatformEntity shucangPlatformEntity = shucangPlatformMapper.selectById(scId);
-        if (shucangPlatformEntity != null) {
+        if (shucangPlatformEntity == null) {
             return ResponseDTO.wrap(ResponseCode.DATA_NOT_EXIST);
         }
         shucangPlatformEntity.setBrowseNum(shucangPlatformEntity.getBrowseNum() + 1);
@@ -250,8 +257,16 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
      * @param tagAddDTOS
      */
     private void storeTags(Integer scId, List<TagAddDTO> tagAddDTOS) {
+        LambdaQueryWrapper<ScTagEntity> scTagQueryByScId = new LambdaQueryWrapper<ScTagEntity>().eq(ScTagEntity::getScId, scId);
+        scTagMapper.delete(scTagQueryByScId);
+        //删除关联表数据以及关联标签数据
+        List<ScTagEntity> scTagEntities = scTagMapper.selectList(scTagQueryByScId);
+        if (CollectionUtil.isNotEmpty(scTagEntities)) {
+            tagMapper.deleteBatchIds(scTagEntities.stream().map(ScTagEntity::getTagId).collect(Collectors.toList()));
+        }
+
         if (CollectionUtil.isNotEmpty(tagAddDTOS)) {
-            scTagMapper.delete(new LambdaQueryWrapper<ScTagEntity>().eq(ScTagEntity::getScId, scId));
+            //重新添加新的数据
             for (TagAddDTO tagAddDTO : tagAddDTOS) {
                 TagEntity tagEntity = SmartBeanUtil.copy(tagAddDTO, TagEntity.class);
                 if (tagMapper.insert(tagEntity) != 1)
@@ -268,8 +283,8 @@ public class ShucangPlatformServiceImpl implements ShucangPlatformService {
      * @param blockchainIds
      */
     private void storeBlockchains(Integer scId, List<Integer> blockchainIds) {
+        scBcMapper.delete(new LambdaQueryWrapper<ScBcEntity>().eq(ScBcEntity::getScId, scId));
         if (CollectionUtil.isNotEmpty(blockchainIds)) {
-            scBcMapper.delete(new LambdaQueryWrapper<ScBcEntity>().eq(ScBcEntity::getScId, scId));
             for (Integer blockchainId : blockchainIds) {
                 if (blockchainMapper.selectById(blockchainId) == null)
                     throw new BusinessException("区块链ID：" + blockchainId + "不存在");
