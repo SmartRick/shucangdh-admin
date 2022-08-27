@@ -1,7 +1,6 @@
 package cn.smartrick.metaverse.controller;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONObject;
 import cn.smartrick.metaverse.common.constant.CommonConst;
 import cn.smartrick.metaverse.common.domain.ResponseDTO;
 import cn.smartrick.metaverse.config.GlobalConfig;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 全局功能接口
@@ -65,7 +66,7 @@ public class GlobalController {
      * @param file
      */
     @PostMapping("/auImgs")
-    public JSONObject uploadImageForAvue(MultipartFile file) throws IOException {
+    public Map<String,String> uploadImageForAvue(MultipartFile file) throws IOException {
         if (file != null) {
             //校验图片格式
             boolean flag = false;
@@ -83,8 +84,9 @@ public class GlobalController {
                 throw new BusinessException("上传失败，单张图片大小不超过2MB");
             }
             String fileToken = qiniuFileUtil.uploadFile(file);
-
-            return new JSONObject().set("url", globalConfig.getOssDomain() + "/" +fileToken);
+            HashMap<String, String> resMap = new HashMap<>();
+            resMap.put("url", globalConfig.getOssDomain() + "/" +fileToken);
+            return resMap;
         }
         throw new BusinessException("请至少上传一张图片文件");
     }

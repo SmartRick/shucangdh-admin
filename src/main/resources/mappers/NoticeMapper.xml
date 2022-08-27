@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smartrick.metaverse.mapper.NoticeMapper">
+
+    <resultMap id="NoticeVO" type="cn.smartrick.metaverse.domain.vo.NoticeVO"></resultMap>
+
+
+    <select id="selectByPage" resultMap="NoticeVO">
+        select
+          id,
+          notice_title,
+          content,
+          notice_type,
+          start_time,
+          end_time,
+          created_at,
+          updated_at
+        from t_notice
+        <where>
+            <if test="queryDTO.id != null">
+                AND id = #{queryDTO.id}
+            </if>
+            <if test="queryDTO.noticeTitle != null and queryDTO.noticeTitle != ''">
+                AND notice_title = #{queryDTO.noticeTitle}
+            </if>
+            <if test="queryDTO.content != null and queryDTO.content != ''">
+                AND content = #{queryDTO.content}
+            </if>
+            <if test="queryDTO.noticeType != null">
+                AND notice_type = #{queryDTO.noticeType}
+            </if>
+            <if test="queryDTO.startTime != null">
+                AND start_time = #{queryDTO.startTime}
+            </if>
+            <if test="queryDTO.endTime != null">
+                AND end_time = #{queryDTO.endTime}
+            </if>
+            <if test="queryDTO.createdAt != null">
+                AND created_at = #{queryDTO.createdAt}
+            </if>
+            <if test="queryDTO.updatedAt != null">
+                AND updated_at = #{queryDTO.updatedAt}
+            </if>
+
+            <if test="queryDTO.createTimeBegin != null ">
+                AND create_time &gt;= #{queryDTO.createTimeBegin}
+            </if>
+            <if test="queryDTO.createTimeEnd != null ">
+                AND create_time &lt;= #{queryDTO.createTimeEnd}
+            </if>
+
+            <if test="queryDTO.updateTimeBegin != null ">
+                AND update_time &gt;= #{queryDTO.updateTimeBegin}
+            </if>
+            <if test="queryDTO.updateTimeEnd != null ">
+                AND update_time &lt;= #{queryDTO.updateTimeEnd}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

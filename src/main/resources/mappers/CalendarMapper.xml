@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smartrick.metaverse.mapper.CalendarMapper">
+
+    <resultMap id="CalendarVO" type="cn.smartrick.metaverse.domain.vo.CalendarVO"></resultMap>
+    <resultMap id="CalendarExcelVO" type="cn.smartrick.metaverse.domain.vo.excel.CalendarExcelVO"></resultMap>
+
+
+    <select id="selectByPage" resultMap="CalendarVO">
+        select
+          id,
+          name,
+          cover_img,
+          state,
+          platfrom_id,
+          release_author,
+          release_num,
+          release_time,
+          price,
+          goods_url,
+          created_at,
+          updated_at
+        from t_calendar
+        <where>
+            <if test="queryDTO.id != null">
+                AND id = #{queryDTO.id}
+            </if>
+            <if test="queryDTO.name != null and queryDTO.name != ''">
+                AND name = #{queryDTO.name}
+            </if>
+            <if test="queryDTO.coverImg != null and queryDTO.coverImg != ''">
+                AND cover_img = #{queryDTO.coverImg}
+            </if>
+            <if test="queryDTO.state != null">
+                AND state = #{queryDTO.state}
+            </if>
+            <if test="queryDTO.platfromId != null">
+                AND platfrom_id = #{queryDTO.platfromId}
+            </if>
+            <if test="queryDTO.releaseAuthor != null and queryDTO.releaseAuthor != ''">
+                AND release_author = #{queryDTO.releaseAuthor}
+            </if>
+            <if test="queryDTO.releaseNum != null">
+                AND release_num = #{queryDTO.releaseNum}
+            </if>
+            <if test="queryDTO.releaseTime != null">
+                AND release_time = #{queryDTO.releaseTime}
+            </if>
+            <if test="queryDTO.price != null">
+                AND price = #{queryDTO.price}
+            </if>
+            <if test="queryDTO.goodsUrl != null and queryDTO.goodsUrl != ''">
+                AND goods_url = #{queryDTO.goodsUrl}
+            </if>
+            <if test="queryDTO.createdAt != null">
+                AND created_at = #{queryDTO.createdAt}
+            </if>
+            <if test="queryDTO.updatedAt != null">
+                AND updated_at = #{queryDTO.updatedAt}
+            </if>
+
+            <if test="queryDTO.createTimeBegin != null ">
+                AND create_time &gt;= #{queryDTO.createTimeBegin}
+            </if>
+            <if test="queryDTO.createTimeEnd != null ">
+                AND create_time &lt;= #{queryDTO.createTimeEnd}
+            </if>
+
+            <if test="queryDTO.updateTimeBegin != null ">
+                AND update_time &gt;= #{queryDTO.updateTimeBegin}
+            </if>
+            <if test="queryDTO.updateTimeEnd != null ">
+                AND update_time &lt;= #{queryDTO.updateTimeEnd}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAllExportData" resultMap="CalendarExcelVO">
+        select
+           id,
+           name,
+           cover_img,
+           state,
+           platfrom_id,
+           release_author,
+           release_num,
+           release_time,
+           price,
+           goods_url,
+           created_at,
+           updated_at
+        from t_calendar
+        <where>
+            <if test="queryDTO.id != null">
+                AND id = #{queryDTO.id}
+            </if>
+            <if test="queryDTO.name != null and queryDTO.name != ''">
+                AND name = #{queryDTO.name}
+            </if>
+            <if test="queryDTO.coverImg != null and queryDTO.coverImg != ''">
+                AND cover_img = #{queryDTO.coverImg}
+            </if>
+            <if test="queryDTO.state != null">
+                AND state = #{queryDTO.state}
+            </if>
+            <if test="queryDTO.platfromId != null">
+                AND platfrom_id = #{queryDTO.platfromId}
+            </if>
+            <if test="queryDTO.releaseAuthor != null and queryDTO.releaseAuthor != ''">
+                AND release_author = #{queryDTO.releaseAuthor}
+            </if>
+            <if test="queryDTO.releaseNum != null">
+                AND release_num = #{queryDTO.releaseNum}
+            </if>
+            <if test="queryDTO.releaseTime != null">
+                AND release_time = #{queryDTO.releaseTime}
+            </if>
+            <if test="queryDTO.price != null">
+                AND price = #{queryDTO.price}
+            </if>
+            <if test="queryDTO.goodsUrl != null and queryDTO.goodsUrl != ''">
+                AND goods_url = #{queryDTO.goodsUrl}
+            </if>
+            <if test="queryDTO.createdAt != null">
+                AND created_at = #{queryDTO.createdAt}
+            </if>
+            <if test="queryDTO.updatedAt != null">
+                AND updated_at = #{queryDTO.updatedAt}
+            </if>
+
+            <if test="queryDTO.createTimeBegin != null ">
+                AND create_time &gt;= #{queryDTO.createTimeBegin}
+            </if>
+            <if test="queryDTO.createTimeEnd != null ">
+                AND create_time &lt;= #{queryDTO.createTimeEnd}
+            </if>
+
+            <if test="queryDTO.updateTimeBegin != null ">
+                AND update_time &gt;= #{queryDTO.updateTimeBegin}
+            </if>
+            <if test="queryDTO.updateTimeEnd != null ">
+                AND update_time &lt;= #{queryDTO.updateTimeEnd}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBatchExportData" resultMap="CalendarExcelVO">
+        select
+         id,
+         name,
+         cover_img,
+         state,
+         platfrom_id,
+         release_author,
+         release_num,
+         release_time,
+         price,
+         goods_url,
+         created_at,
+         updated_at
+        from t_calendar
+        where id in
+        <foreach collection="idList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

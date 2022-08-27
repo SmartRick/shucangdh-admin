@@ -1,17 +1,16 @@
 package cn.smartrick.metaverse.utils;
 
-import cn.hutool.http.HttpUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import cn.smartrick.metaverse.domain.vo.GpVo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.lionsoul.ip2region.xdb.Searcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.URL;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * [ ip工具箱 ]
@@ -23,9 +22,20 @@ import java.util.Map;
  * @date 2019/5/5 0005 下午 15:34
  * @since JDK1.8
  */
+@Slf4j
 public class SmartIPUtil {
+    public static Searcher searcher = null;
 
-    private static final String IP_URL = "http://ip.taobao.com/service/getIpInfo.php";
+    static {
+        byte[] buf;
+        try {
+            URL resource = SmartIPUtil.class.getClassLoader().getResource("ip2region.xdb");
+            buf = Searcher.loadContentFromFile(resource.getPath());
+            searcher = Searcher.newWithBuffer(buf);
+        } catch (Exception e) {
+            log.error("加载IP地理数据失败，{}", e.getMessage());
+        }
+    }
 
     /**
      * 获取本机ip
@@ -131,48 +141,13 @@ public class SmartIPUtil {
         return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
     }
 
-    public static String getRemoteLocation(HttpServletRequest request) {
-        String ip = getRemoteIp(request);
-        return getIpLocation(ip);
+    public static String getRemoteLocation(HttpServletRequest request) throws Exception {
+        return getIpGp(getRemoteIp(request)).getCity();
     }
 
-    /**
-     * 获取 IP 地理位置
-     *
-     * @param ip ip
-     * @return String 地理位置
-     */
-    public static String getIpLocation(String ip) {
-        String location = "未知";
-        if (StringUtils.isEmpty(ip)) {
-            return location;
-        }
-        Map<String, Object> param = new HashMap<>();
-        param.put("ip", ip);
 
-        try {
-
-            String rspStr = HttpUtil.get(IP_URL, param);
-            if (StringUtils.isEmpty(rspStr)) {
-                return location;
-            }
-            JSONObject jsonObject = JSON.parseObject(rspStr);
-            String data = jsonObject.getString("data");
-            JSONObject jsonData = JSON.parseObject(data);
-            String region = jsonData.getString("region");
-            String city = jsonData.getString("city");
-            location = region + " " + city;
-            if (location.contains("内网IP")) {
-                location = "内网(" + ip + ")";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return location;
-    }
-
-    public static void main(String[] args) {
-        System.out.printf(getIpLocation("172.16.0.221"));
+    public static GpVo getIpGp(String ip) throws Exception {
+        return GpVo.parserGpStr(searcher.search(ip));
     }
 
 }

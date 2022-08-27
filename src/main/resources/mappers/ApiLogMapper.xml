@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smartrick.metaverse.mapper.ApiLogMapper">
+
+    <resultMap id="ApiLogVO" type="cn.smartrick.metaverse.domain.vo.ApiLogVO"></resultMap>
+    <resultMap id="ApiLogExcelVO" type="cn.smartrick.metaverse.domain.vo.excel.ApiLogExcelVO"></resultMap>
+
+
+    <select id="selectByPage" resultMap="ApiLogVO">
+        select
+          id,
+          module,
+          api_name,
+          api_path,
+          client_uuid,
+          remote_addr,
+          platform,
+          req_time
+        from t_api_log
+        <where>
+            <if test="queryDTO.id != null">
+                AND id = #{queryDTO.id}
+            </if>
+            <if test="queryDTO.module != null and queryDTO.module != ''">
+                AND module = #{queryDTO.module}
+            </if>
+            <if test="queryDTO.apiName != null and queryDTO.apiName != ''">
+                AND api_name = #{queryDTO.apiName}
+            </if>
+            <if test="queryDTO.apiPath != null and queryDTO.apiPath != ''">
+                AND api_path = #{queryDTO.apiPath}
+            </if>
+            <if test="queryDTO.clientUuid != null and queryDTO.clientUuid != ''">
+                AND client_uuid = #{queryDTO.clientUuid}
+            </if>
+            <if test="queryDTO.remoteAddr != null and queryDTO.remoteAddr != ''">
+                AND remote_addr = #{queryDTO.remoteAddr}
+            </if>
+            <if test="queryDTO.platform != null and queryDTO.platform != ''">
+                AND platform = #{queryDTO.platform}
+            </if>
+
+            <if test="queryDTO.reqTimeBegin != null ">
+                AND req_time &gt;= #{queryDTO.reqTimeBegin}
+            </if>
+            <if test="queryDTO.reqTimeEnd != null ">
+                AND req_time &lt;= #{queryDTO.reqTimeEnd}
+            </if>
+
+        </where>
+    </select>
+
+    <select id="selectAllExportData" resultMap="ApiLogExcelVO">
+        select
+           id,
+           module,
+           api_name,
+           api_path,
+           client_uuid,
+           remote_addr,
+           platform,
+           req_time
+        from t_api_log
+        <where>
+            <if test="queryDTO.id != null">
+                AND id = #{queryDTO.id}
+            </if>
+            <if test="queryDTO.module != null and queryDTO.module != ''">
+                AND module = #{queryDTO.module}
+            </if>
+            <if test="queryDTO.apiName != null and queryDTO.apiName != ''">
+                AND api_name = #{queryDTO.apiName}
+            </if>
+            <if test="queryDTO.apiPath != null and queryDTO.apiPath != ''">
+                AND api_path = #{queryDTO.apiPath}
+            </if>
+            <if test="queryDTO.clientUuid != null and queryDTO.clientUuid != ''">
+                AND client_uuid = #{queryDTO.clientUuid}
+            </if>
+            <if test="queryDTO.remoteAddr != null and queryDTO.remoteAddr != ''">
+                AND remote_addr = #{queryDTO.remoteAddr}
+            </if>
+            <if test="queryDTO.platform != null and queryDTO.platform != ''">
+                AND platform = #{queryDTO.platform}
+            </if>
+            <if test="queryDTO.reqTimeBegin != null ">
+                AND req_time &gt;= #{queryDTO.reqTimeBegin}
+            </if>
+            <if test="queryDTO.reqTimeEnd != null ">
+                AND req_time &lt;= #{queryDTO.reqTimeEnd}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBatchExportData" resultMap="ApiLogExcelVO">
+        select
+         <include refid="queryColumn"></include>
+        from t_api_log
+        where id in
+        <foreach collection="idList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <sql id="queryColumn">
+        id,
+         module,
+         api_name,
+         api_path,
+         client_uuid,
+         remote_addr,
+         platform,
+         req_time
+    </sql>
+
+    <select id="selectDayByToday" resultMap="ApiLogVO">
+        SELECT
+            <include refid="queryColumn"></include>
+        FROM t_api_log
+        WHERE DATEDIFF(req_time,now()) = #{gap}
+    </select>
+
+    <select id="selectRangeByDays" resultMap="ApiLogVO">
+        SELECT
+        <include refid="queryColumn"></include>
+        FROM t_api_log
+        WHERE DATEDIFF(req_time,now()) <= 0
+        AND  DATEDIFF(req_time,now()) > -#{days}
+    </select>
+
+
+</mapper>
