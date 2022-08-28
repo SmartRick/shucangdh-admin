@@ -5,6 +5,7 @@ import cn.smartrick.metaverse.common.domain.ResponseDTO;
 import cn.smartrick.metaverse.domain.dto.add.ApiLogAddDTO;
 import cn.smartrick.metaverse.domain.dto.query.ApiLogQueryDTO;
 import cn.smartrick.metaverse.domain.vo.ApiLogVO;
+import cn.smartrick.metaverse.domain.vo.DailyDataVo;
 import cn.smartrick.metaverse.domain.vo.excel.ApiLogExcelVO;
 
 import java.util.List;
@@ -63,6 +64,23 @@ public interface ApiLogService {
      */
     public List<ApiLogExcelVO> queryBatchExportData(List<Long> idList);
 
+    /**
+     * 批量查询导出对象
+     * @author SmartRick
+     */
+    ResponseDTO<DailyDataVo> queryDailyByGap(int gap);
 
-    public ResponseDTO queryToday();
+    /**
+     * 查询最近几天的每天数据
+     * @param days
+     * @return
+     */
+    ResponseDTO<List<DailyDataVo>> queryRecentDays(int days);
+
+    /**
+     * 查询最近几天的汇总数据
+     * @param days
+     * @return
+     */
+    ResponseDTO<DailyDataVo> queryRecentDaySum(int days);
 }

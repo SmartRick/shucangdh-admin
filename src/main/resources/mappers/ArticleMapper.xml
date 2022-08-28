@@ -8,14 +8,7 @@
 
     <select id="selectByPage" resultMap="ArticleVO">
         select
-          id,
-          article_title,
-          cover_img,
-          like_num,
-          browse_num,
-          created_at,
-          updated_at,
-          content
+        <include refid="queryColumn"></include>
         from t_article
         <where>
             <if test="queryDTO.id != null">
@@ -61,14 +54,7 @@
 
     <select id="selectAllExportData" resultMap="ArticleExcelVO">
         select
-           id,
-           article_title,
-           cover_img,
-           like_num,
-           browse_num,
-           created_at,
-           updated_at,
-           content
+        <include refid="queryColumn"></include>
         from t_article
         <where>
             <if test="queryDTO.id != null">
@@ -114,7 +100,16 @@
 
     <select id="selectBatchExportData" resultMap="ArticleExcelVO">
         select
-         id,
+        <include refid="queryColumn"></include>
+        from t_article
+        where id in
+        <foreach collection="idList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <sql id="queryColumn">
+        id,
          article_title,
          cover_img,
          like_num,
@@ -122,11 +117,22 @@
          created_at,
          updated_at,
          content
-        from t_article
-        where id in
-        <foreach collection="idList" open="(" close=")" separator="," item="item">
-            #{item}
-        </foreach>
+    </sql>
+
+    <select id="selectDayByToday" resultMap="ArticleVO">
+        SELECT
+        <include refid="queryColumn"></include>
+        FROM t_article
+        WHERE DATEDIFF(created_at,now()) = #{gap}
     </select>
+
+    <select id="selectRangeByDays" resultMap="ArticleVO">
+        SELECT
+        <include refid="queryColumn"></include>
+        FROM t_article
+        WHERE DATEDIFF(created_at,now())<= 0
+        AND DATEDIFF(created_at,now()) >= -#{days}
+    </select>
+
 
 </mapper>

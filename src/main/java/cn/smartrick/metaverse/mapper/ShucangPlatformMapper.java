@@ -1,12 +1,12 @@
 package cn.smartrick.metaverse.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.smartrick.metaverse.domain.dto.query.ShucangPlatformQueryDTO;
 import cn.smartrick.metaverse.domain.entity.ShucangPlatformEntity;
 import cn.smartrick.metaverse.domain.vo.ShucangPlatformVO;
 import cn.smartrick.metaverse.domain.vo.excel.ShucangPlatformExcelVO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -47,4 +47,22 @@ public interface ShucangPlatformMapper extends BaseMapper<ShucangPlatformEntity>
          * @return
          */
     List<ShucangPlatformExcelVO> selectBatchExportData(@Param("idList")List<Long> idList);
+
+
+    /**
+     * 根据距离当天的间隔天数(gap)，查询某天的全部数据
+     * 例如查询当天：0；查询昨天-1,异常类推
+     * @param gap
+     * @return
+     */
+    public List<ShucangPlatformVO> selectDayByToday(@Param("gap") int gap);
+
+    /**
+     * 查询过去几天的全部数据
+     * 例如查询过去7天，days=7
+     * @param days
+     * @return
+     */
+    public List<ShucangPlatformVO> selectRangeByDays(@Param("days") int days);
+
 }

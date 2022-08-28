@@ -8,11 +8,7 @@
 
     <select id="selectByPage" resultMap="CommentVO">
         select
-          id,
-          content,
-          user_uuid,
-          created_at,
-          updated_at
+        <include refid="queryColumn"></include>
         from t_comment
         <where>
             <if test="queryDTO.id != null">
@@ -49,11 +45,7 @@
 
     <select id="selectAllExportData" resultMap="CommentExcelVO">
         select
-           id,
-           content,
-           user_uuid,
-           created_at,
-           updated_at
+        <include refid="queryColumn"></include>
         from t_comment
         <where>
             <if test="queryDTO.id != null">
@@ -90,16 +82,35 @@
 
     <select id="selectBatchExportData" resultMap="CommentExcelVO">
         select
-         id,
-         content,
-         user_uuid,
-         created_at,
-         updated_at
+        <include refid="queryColumn"></include>
         from t_comment
         where id in
         <foreach collection="idList" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
+    </select>
+
+    <sql id="queryColumn">
+        id,
+         content,
+         user_uuid,
+         created_at,
+         updated_at
+    </sql>
+
+    <select id="selectDayByToday" resultMap="CommentVO">
+        SELECT
+        <include refid="queryColumn"></include>
+        FROM t_comment
+        WHERE DATEDIFF(created_at,now()) = #{gap}
+    </select>
+
+    <select id="selectRangeByDays" resultMap="CommentVO">
+        SELECT
+        <include refid="queryColumn"></include>
+        FROM t_comment
+        WHERE DATEDIFF(created_at,now()) <= 0
+        AND  DATEDIFF(created_at,now()) >= -#{days}
     </select>
 
 </mapper>

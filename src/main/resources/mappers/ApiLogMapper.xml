@@ -8,14 +8,7 @@
 
     <select id="selectByPage" resultMap="ApiLogVO">
         select
-          id,
-          module,
-          api_name,
-          api_path,
-          client_uuid,
-          remote_addr,
-          platform,
-          req_time
+        <include refid="queryColumn"></include>
         from t_api_log
         <where>
             <if test="queryDTO.id != null">
@@ -52,14 +45,7 @@
 
     <select id="selectAllExportData" resultMap="ApiLogExcelVO">
         select
-           id,
-           module,
-           api_name,
-           api_path,
-           client_uuid,
-           remote_addr,
-           platform,
-           req_time
+        <include refid="queryColumn"></include>
         from t_api_log
         <where>
             <if test="queryDTO.id != null">
@@ -94,7 +80,7 @@
 
     <select id="selectBatchExportData" resultMap="ApiLogExcelVO">
         select
-         <include refid="queryColumn"></include>
+        <include refid="queryColumn"></include>
         from t_api_log
         where id in
         <foreach collection="idList" open="(" close=")" separator="," item="item">
@@ -125,7 +111,77 @@
         <include refid="queryColumn"></include>
         FROM t_api_log
         WHERE DATEDIFF(req_time,now()) <= 0
-        AND  DATEDIFF(req_time,now()) > -#{days}
+        AND  DATEDIFF(req_time,now()) >= -#{days}
+    </select>
+
+    <select id="selectUserClientIncrement" resultType="integer">
+        SELECT
+        COUNT(DISTINCT client_uuid) as increment
+        FROM
+        t_api_log
+        WHERE
+            <if test="gap != null">
+                DATEDIFF(req_time,now()) = #{gap}
+            </if>
+            <if test="days != null">
+                DATEDIFF(req_time,now()) <= 0
+                AND DATEDIFF(req_time,now()) >= -#{days}
+            </if>
+            AND client_uuid is not null
+            AND client_uuid not in (
+                SELECT
+                DISTINCT client_uuid
+                FROM
+                t_api_log
+                WHERE
+                <if test="gap != null">
+                DATEDIFF(req_time,NOW()) < #{gap}
+                </if>
+                <if test="days != null">
+                DATEDIFF(req_time,NOW()) < -#{days}
+                </if>
+                AND client_uuid is not null
+            )
+        ORDER BY client_uuid
+    </select>
+
+    <select id="selectDailyCount" resultType="integer">
+        SELECT
+            COUNT(id)
+        FROM
+            t_api_log
+        WHERE
+            DATEDIFF(`req_time`,now()) = #{gap}
+          AND `client_uuid` is not null
+          <if test="module != null and module != ''">
+            AND `module`=#{module}
+          </if>
+          <if test="apiName != null and apiName != ''">
+            AND `api_name`=#{apiName}
+          </if>
+          <if test="apiPath != null and apiPath != ''">
+            AND `api_path`=#{apiPath}
+          </if>
+    </select>
+
+    <select id="selectRangeCount" resultType="integer">
+        SELECT
+        COUNT(id)
+        FROM
+        t_api_log
+        WHERE
+            DATEDIFF(req_time,now()) <= 0
+            AND DATEDIFF(req_time,now()) >= -#{days}
+            AND `client_uuid` is not null
+            <if test="module != null and module != ''">
+            AND `module`=#{module}
+            </if>
+            <if test="apiName != null and apiName != ''">
+            AND `api_name`=#{apiName}
+            </if>
+            <if test="apiPath != null and apiPath != ''">
+            AND `api_path`=#{apiPath}
+            </if>
     </select>
 
 

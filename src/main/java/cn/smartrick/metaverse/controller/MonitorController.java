@@ -75,9 +75,22 @@ public class MonitorController extends BaseController {
 
     @ApiOperation(value = "今日数据统计",notes = "@author SmartRick")
     @PostMapping("/today")
-    public ResponseDTO queryToday(@RequestBody @ApiParam(value = "分页参数", name = "queryDTO", required = true) ApiLogQueryDTO queryDTO) {
-        return apiLogService.queryToday();
+    public ResponseDTO queryToday() {
+        return apiLogService.queryDailyByGap(0);
     }
+
+    @ApiOperation(value = "最近几日数据统计",notes = "@author SmartRick")
+    @PostMapping("/recentDays")
+    public ResponseDTO queryRecentDays(@RequestParam("days") Integer days) {
+        return apiLogService.queryRecentDays(days);
+    }
+
+    @ApiOperation(value = "最近几日数据总和",notes = "@author SmartRick")
+    @PostMapping("/recentDaysSum")
+    public ResponseDTO queryRecentDaysSum(@RequestParam("days") Integer days) {
+        return apiLogService.queryRecentDaySum(days);
+    }
+
 
 
 }

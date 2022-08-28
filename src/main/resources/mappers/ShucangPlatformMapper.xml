@@ -65,15 +65,7 @@
 
     <select id="selectAllExportData" resultMap="ShucangPlatformExcelVO">
         select
-        id,
-        name,
-        cover_img,
-        remark,
-        market_model,
-        browse_num,
-        like_num,
-        created_at,
-        updated_at
+        <include refid="queryColumn"></include>
         from t_shucang_platform
         <where>
             <if test="queryDTO.name != null and queryDTO.name != ''">
@@ -107,6 +99,15 @@
 
     <select id="selectBatchExportData" resultMap="ShucangPlatformExcelVO">
         select
+        <include refid="queryColumn"></include>
+        from t_shucang_platform
+        where id in
+        <foreach collection="idList" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <sql id="queryColumn">
         id,
         name,
         cover_img,
@@ -116,11 +117,21 @@
         like_num,
         created_at,
         updated_at
-        from t_shucang_platform
-        where id in
-        <foreach collection="idList" open="(" close=")" separator="," item="item">
-            #{item}
-        </foreach>
+    </sql>
+
+    <select id="selectDayByToday" resultMap="ShucangPlatformVO">
+        SELECT
+        <include refid="queryColumn"></include>
+        FROM t_shucang_platform
+        WHERE DATEDIFF(created_at,now()) = #{gap}
+    </select>
+
+    <select id="selectRangeByDays" resultMap="ShucangPlatformVO">
+        SELECT
+        <include refid="queryColumn"></include>
+        FROM t_shucang_platform
+        WHERE DATEDIFF(created_at,now()) <= 0
+        AND  DATEDIFF(created_at,now()) >= -#{days}
     </select>
 
 </mapper>
