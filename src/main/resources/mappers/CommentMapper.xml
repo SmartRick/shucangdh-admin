@@ -105,11 +105,18 @@
         WHERE DATEDIFF(created_at,now()) = #{gap}
     </select>
 
+    <select id="selectPastDataByGap" resultMap="CommentVO">
+        SELECT
+        <include refid="queryColumn"></include>
+        FROM t_comment
+        WHERE DATEDIFF(created_at,now()) &lt;= #{gap}
+    </select>
+
     <select id="selectRangeByDays" resultMap="CommentVO">
         SELECT
         <include refid="queryColumn"></include>
         FROM t_comment
-        WHERE DATEDIFF(created_at,now()) <= 0
+        WHERE DATEDIFF(created_at,now()) &lt;= 0
         AND  DATEDIFF(created_at,now()) >= -#{days}
     </select>
 

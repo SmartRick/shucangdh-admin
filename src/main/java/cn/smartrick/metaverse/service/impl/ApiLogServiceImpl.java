@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -169,7 +170,7 @@ public class ApiLogServiceImpl implements ApiLogService{
 
     private List<DailyDataVo> queryRecentDaysDataVoByDays(int days){
         ArrayList<DailyDataVo> dailyDataVos = new ArrayList<>();
-        for (int i = days; i > 0; i--) {
+        for (int i = days; i >= 0; i--) {
             dailyDataVos.add(queryDailyDataVoByGap(-i));
         }
         return dailyDataVos;
@@ -184,7 +185,11 @@ public class ApiLogServiceImpl implements ApiLogService{
         Integer dailyBrowseCount = apiLogMapper.selectDailyCount(gap, "数藏平台", "浏览数藏平台", null);
         Integer dailyNewUserCount = apiLogMapper.selectUserClientIncrement(gap,null);
 
+        Calendar instance = Calendar.getInstance();
+        instance.add(Calendar.DAY_OF_MONTH,gap);
+
         DailyDataVo dailyDataVo = new DailyDataVo();
+        dailyDataVo.setDate(instance.getTime());
         dailyDataVo.setClick(dailyApiReqCount);
         dailyDataVo.setBrowse(dailyBrowseCount);
         dailyDataVo.setLike(dailyLikeCount);
@@ -192,5 +197,11 @@ public class ApiLogServiceImpl implements ApiLogService{
         dailyDataVo.setComment(commentVOS.size());
         dailyDataVo.setNewPlatform(shucangPlatformVOS.size());
         return dailyDataVo;
+    }
+
+    @Override
+    public ResponseDTO<List<DailyDataVo>> recentDaysTotal(int days) {
+
+        return null;
     }
 }

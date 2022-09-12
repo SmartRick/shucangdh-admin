@@ -25,6 +25,7 @@ public class ApiLogInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (!(handler instanceof HandlerMethod)){return true;}
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         String remoteIp = SmartIPUtil.getRemoteIp(request);
         String userAgent = request.getHeader("User-Agent");

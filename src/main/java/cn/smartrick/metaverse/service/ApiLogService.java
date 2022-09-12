@@ -65,7 +65,7 @@ public interface ApiLogService {
     public List<ApiLogExcelVO> queryBatchExportData(List<Long> idList);
 
     /**
-     * 批量查询导出对象
+     * 查询最近某天数据
      * @author SmartRick
      */
     ResponseDTO<DailyDataVo> queryDailyByGap(int gap);
@@ -83,4 +83,11 @@ public interface ApiLogService {
      * @return
      */
     ResponseDTO<DailyDataVo> queryRecentDaySum(int days);
+
+    /**
+     * 查询最近几天的总共数据变化
+     * @param days
+     * @return
+     */
+    ResponseDTO<List<DailyDataVo>> recentDaysTotal(int days);
 }

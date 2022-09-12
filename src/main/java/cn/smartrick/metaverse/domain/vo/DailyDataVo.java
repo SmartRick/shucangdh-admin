@@ -2,11 +2,14 @@ package cn.smartrick.metaverse.domain.vo;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 日数据
  */
 @Data
 public class DailyDataVo {
+    private Date date;
     //所有接口请求数量
     private Integer click;
     //浏览量

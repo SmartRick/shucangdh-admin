@@ -7,6 +7,7 @@ import cn.smartrick.metaverse.config.GlobalConfig;
 import cn.smartrick.metaverse.exception.BusinessException;
 import cn.smartrick.metaverse.service.FileService;
 import cn.smartrick.metaverse.utils.QiniuFileUtil;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import java.util.Map;
  * 全局功能接口
  */
 @RestController
+@Api(value = "系统全局功能接口",tags = {"系统全局功能接口"})
 public class GlobalController {
 
     @Autowired

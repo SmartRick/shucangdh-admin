@@ -57,6 +57,14 @@ public interface ArticleMapper extends BaseMapper<ArticleEntity> {
     public List<ArticleVO> selectDayByToday(@Param("gap") int gap);
 
     /**
+     * 根据距离当天的间隔天数(gap)，查询某天和之前的所有数据
+     * 例如查询当天以及过去所有：0；查询昨天-1以及过去所有,异常类推
+     * @param gap
+     * @return
+     */
+    public List<ArticleVO> selectPastDataByGap(@Param("gap") int gap);
+
+    /**
      * 查询过去几天的全部数据
      * 例如查询过去7天，days=7
      * @param days

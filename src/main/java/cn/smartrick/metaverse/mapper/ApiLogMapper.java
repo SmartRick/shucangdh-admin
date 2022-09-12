@@ -80,6 +80,15 @@ public interface ApiLogMapper extends BaseMapper<ApiLogEntity> {
     public Integer selectUserClientIncrement(@Param("gap") Integer gap,@Param("days") Integer days);
 
     /**
+     * 根据请求日志信息判定新增客户端指纹，也就是新增用户数量
+     *
+     * 两个参数二选一
+     * @param gap   间隔第几天的数据
+     * @return
+     */
+    public Integer selectUserClientTotalByGap(@Param("gap") Integer gap);
+
+    /**
      * 根据距离今日的间隔天数(gap)，查询接口请求统计数量
      * @param gap       日期间隔
      * @param module    模块名称

@@ -110,8 +110,8 @@
         SELECT
         <include refid="queryColumn"></include>
         FROM t_api_log
-        WHERE DATEDIFF(req_time,now()) <= 0
-        AND  DATEDIFF(req_time,now()) >= -#{days}
+        WHERE DATEDIFF(req_time,now()) &lt;= 0
+        AND  DATEDIFF(req_time,now()) &gt;= -#{days}
     </select>
 
     <select id="selectUserClientIncrement" resultType="integer">
@@ -124,7 +124,7 @@
                 DATEDIFF(req_time,now()) = #{gap}
             </if>
             <if test="days != null">
-                DATEDIFF(req_time,now()) <= 0
+                DATEDIFF(req_time,now()) &lt;= 0
                 AND DATEDIFF(req_time,now()) >= -#{days}
             </if>
             AND client_uuid is not null
@@ -135,14 +135,24 @@
                 t_api_log
                 WHERE
                 <if test="gap != null">
-                DATEDIFF(req_time,NOW()) < #{gap}
+                DATEDIFF(req_time,NOW()) &lt; #{gap}
                 </if>
                 <if test="days != null">
-                DATEDIFF(req_time,NOW()) < -#{days}
+                DATEDIFF(req_time,NOW()) &lt; -#{days}
                 </if>
                 AND client_uuid is not null
             )
         ORDER BY client_uuid
+    </select>
+
+    <select id="selectUserClientTotalByGap" resultType="integer">
+        SELECT
+        COUNT(DISTINCT client_uuid)
+        FROM
+        t_api_log
+        WHERE
+        DATEDIFF(req_time,NOW()) &lt;= #{gap}
+        AND client_uuid is not null
     </select>
 
     <select id="selectDailyCount" resultType="integer">
@@ -170,8 +180,8 @@
         FROM
         t_api_log
         WHERE
-            DATEDIFF(req_time,now()) <= 0
-            AND DATEDIFF(req_time,now()) >= -#{days}
+            DATEDIFF(req_time,now()) &lt;= 0
+            AND DATEDIFF(req_time,now()) &gt;= -#{days}
             AND `client_uuid` is not null
             <if test="module != null and module != ''">
             AND `module`=#{module}
